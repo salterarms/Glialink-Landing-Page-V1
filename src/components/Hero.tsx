@@ -1,12 +1,20 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { HERO, NAV } from "@/lib/copy";
 import { event } from "@/lib/analytics";
+import { getVariant } from "@/lib/variants";
 
 export default function Hero() {
+  const [variant, setVariant] = useState<string>("control");
+
+  useEffect(() => {
+    setVariant(getVariant());
+  }, []);
+
   const scrollToSignup = () => {
-    event("hero_cta_click");
+    event("hero_cta_click", { variant });
     document.getElementById("signup")?.scrollIntoView({ behavior: "smooth" });
   };
 

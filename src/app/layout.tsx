@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { DM_Sans, Inter } from "next/font/google";
 import { SITE } from "@/lib/copy";
+import VariantInitializer from "@/components/VariantInitializer";
+import ScrollTrackerClient from "@/components/ScrollTrackerClient";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -43,13 +45,17 @@ export default function RootLayout({
             />
             <script
               dangerouslySetInnerHTML={{
-                __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');`,
+                __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}',{allow_google_signals:false,anonymize_ip:true});`,
               }}
             />
           </>
         )}
       </head>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <VariantInitializer />
+        <ScrollTrackerClient />
+        {children}
+      </body>
     </html>
   );
 }
