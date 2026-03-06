@@ -45,16 +45,10 @@ export default function SignUpForm() {
     event("form_submit", { email_domain: emailDomain, variant });
 
     const context = getAnalyticsContext();
-    const formEndpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT;
-
-    if (!formEndpoint) {
-      // No endpoint configured — just show success for dev/testing
-      setSubmitted(true);
-      setShowSurvey(true);
-      setLoading(false);
-      event("form_submit_success", { variant });
-      return;
-    }
+    
+    // Auto-detect endpoint: use configured value or current domain
+    const formEndpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT || 
+      `${typeof window !== 'undefined' ? window.location.origin : ''}/api/signup`;
 
     try {
       const res = await fetch(formEndpoint, {
@@ -94,23 +88,23 @@ export default function SignUpForm() {
       variant,
     });
 
-    const surveyEndpoint = process.env.NEXT_PUBLIC_SURVEY_ENDPOINT;
+    // Auto-detect endpoint: use configured value or current domain
+    const surveyEndpoint = process.env.NEXT_PUBLIC_SURVEY_ENDPOINT || 
+      `${typeof window !== 'undefined' ? window.location.origin : ''}/api/survey`;
 
-    if (surveyEndpoint) {
-      try {
-        await fetch(surveyEndpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email,
-            ...survey,
-            variant,
-            timestamp: new Date().toISOString(),
-          }),
-        });
-      } catch (err) {
-        console.error("Survey submission error:", err);
-      }
+    try {
+      await fetch(surveyEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          ...survey,
+          variant,
+          timestamp: new Date().toISOString(),
+        }),
+      });
+    } catch (err) {
+      console.error("Survey submission error:", err);
     }
 
     setShowSurvey(false);
