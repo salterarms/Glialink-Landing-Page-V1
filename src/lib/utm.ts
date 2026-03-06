@@ -1,4 +1,6 @@
 // UTM parameter capture — grabs from URL on load, persists in sessionStorage
+import { getVariant } from "@/lib/variants";
+
 const UTM_KEYS = [
   "utm_source",
   "utm_medium",
@@ -8,6 +10,11 @@ const UTM_KEYS = [
 ] as const;
 
 export type UTMParams = Partial<Record<(typeof UTM_KEYS)[number], string>>;
+
+export interface AnalyticsContext extends UTMParams {
+  referrer: string;
+  variant: string;
+}
 
 export function captureUTM(): UTMParams {
   if (typeof window === "undefined") return {};
@@ -35,4 +42,19 @@ export function getStoredUTM(): UTMParams {
     if (val) params[key] = val;
   }
   return params;
+}
+
+export function getAnalyticsContext(): AnalyticsContext {
+  if (typeof window === "undefined") {
+    return {
+      referrer: "",
+      variant: "control",
+    };
+  }
+
+  return {
+    ...getStoredUTM(),
+    referrer: document.referrer || "(direct)",
+    variant: getVariant(),
+  };
 }
