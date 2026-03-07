@@ -159,5 +159,5 @@ export const SIGNUP = {
 export const FOOTER = {
   tagline: "Built by researchers, for researchers.",
   org: "Brown University",
-  contactEmail: "team@glialink.com",
+  contactEmail: "hello@glialink.com",
 };
