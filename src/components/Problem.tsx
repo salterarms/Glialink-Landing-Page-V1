@@ -2,7 +2,7 @@ import { PROBLEM } from "@/lib/copy";
 
 export default function Problem() {
   return (
-    <section className="bg-purple-light px-6 py-20 md:px-12 lg:px-20">
+    <section id="problem" className="bg-purple-light px-6 py-20 md:px-12 lg:px-20">
       <div className="mx-auto max-w-3xl">
         <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold tracking-tight text-ink md:text-4xl">
           {PROBLEM.heading}

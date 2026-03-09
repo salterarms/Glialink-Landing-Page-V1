@@ -15,6 +15,9 @@ export const SITE = {
 
 export const NAV = {
   logoAlt: "Glialink logo",
+  about: "About",
+  demo: "Demo",
+  bookCall: "Book a Call",
 };
 
 export const HERO = {
@@ -154,6 +157,15 @@ export const SIGNUP = {
     "We'll be in touch soon. Know someone who'd care about this?",
   shareButton: "Copy link to share",
   shareCopied: "Link copied!",
+};
+
+export const BOOK_CALL = {
+  heading: "Talk to the team.",
+  sub: "Have questions or want to learn more? Book a 15-minute call with us — we'd love to hear about your research.",
+  cta: "Book a 15-min call",
+  ctaSub: "Pick a time that works for you.",
+  // Calendly URL — swap in when ready
+  calendlyUrl: "https://calendly.com/salterarms",
 };
 
 export const FOOTER = {
