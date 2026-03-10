@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, type FormEvent } from "react";
-import { SIGNUP } from "@/lib/copy";
+import { SIGNUP, SURVEY } from "@/lib/copy";
 import { event } from "@/lib/analytics";
 import { getAnalyticsContext, getStoredUTM } from "@/lib/utm";
 import { getVariant } from "@/lib/variants";
@@ -9,8 +9,8 @@ import { getVariant } from "@/lib/variants";
 interface SurveyResponse {
   careerStage: string;
   field: string;
-  interestReason: string;
   institutionType: string;
+  biggestChallenge: string;
 }
 
 export default function SignUpForm() {
@@ -25,8 +25,8 @@ export default function SignUpForm() {
   const [survey, setSurvey] = useState<SurveyResponse>({
     careerStage: "",
     field: "",
-    interestReason: "",
     institutionType: "",
+    biggestChallenge: "",
   });
 
   useEffect(() => {
@@ -83,8 +83,8 @@ export default function SignUpForm() {
     event("survey_submit", {
       career_stage: survey.careerStage,
       field: survey.field,
-      interest_reason: survey.interestReason,
       institution_type: survey.institutionType,
+      biggest_challenge: survey.biggestChallenge,
       variant,
     });
 
@@ -119,8 +119,11 @@ export default function SignUpForm() {
   };
 
   return (
-    <section id="signup" className="bg-purple-dark px-6 py-20 md:px-12 lg:px-20">
-      <div className="mx-auto max-w-xl text-center">
+    <section id="signup" className="relative overflow-hidden bg-ink px-6 py-20 md:px-12 lg:px-20">
+      {/* Subtle glow */}
+      <div className="pointer-events-none absolute top-1/2 left-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple/8 blur-3xl" />
+      
+      <div className="relative mx-auto max-w-xl text-center">
         <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold tracking-tight text-white md:text-4xl">
           {SIGNUP.heading}
         </h2>
@@ -160,86 +163,77 @@ export default function SignUpForm() {
             </div>
 
             <p className="text-sm text-white/60 text-center mb-4">
-              Help us understand your research better (1 min)
+              {SURVEY.intro}
             </p>
 
+            {/* Career stage */}
             <div>
               <label className="block text-sm font-medium text-white mb-2">
-                Career Stage *
+                {SURVEY.careerStage.label} *
               </label>
               <select
                 value={survey.careerStage}
-                onChange={(e) =>
-                  setSurvey({ ...survey, careerStage: e.target.value })
-                }
+                onChange={(e) => setSurvey({ ...survey, careerStage: e.target.value })}
                 className="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-2.5 text-white focus:border-white/50 focus:ring-2 focus:ring-white/10 outline-none transition-all"
                 required
               >
-                <option value="" className="text-ink bg-white">Select...</option>
-                <option value="undergrad" className="text-ink bg-white">Undergraduate Student</option>
-                <option value="grad" className="text-ink bg-white">Graduate Student</option>
-                <option value="postdoc" className="text-ink bg-white">Postdoc / Early Career</option>
-                <option value="faculty" className="text-ink bg-white">Faculty</option>
-                <option value="industry" className="text-ink bg-white">Industry Researcher</option>
-                <option value="other" className="text-ink bg-white">Other</option>
+                <option value="" className="text-ink bg-white">Select…</option>
+                {SURVEY.careerStage.options.map((o) => (
+                  <option key={o.value} value={o.value} className="text-ink bg-white">
+                    {o.label}
+                  </option>
+                ))}
               </select>
             </div>
 
+            {/* Research field */}
             <div>
               <label className="block text-sm font-medium text-white mb-2">
-                Field of Research *
+                {SURVEY.field.label} *
               </label>
               <input
                 type="text"
                 value={survey.field}
                 onChange={(e) => setSurvey({ ...survey, field: e.target.value })}
-                placeholder="e.g., Neuroscience, Biophysics, etc."
+                placeholder={SURVEY.field.placeholder}
                 className="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-2.5 text-white placeholder:text-white/40 focus:border-white/50 focus:ring-2 focus:ring-white/10 outline-none transition-all"
                 required
               />
             </div>
 
+            {/* Institution type */}
             <div>
               <label className="block text-sm font-medium text-white mb-2">
-                Primary Interest Reason *
-              </label>
-              <select
-                value={survey.interestReason}
-                onChange={(e) =>
-                  setSurvey({ ...survey, interestReason: e.target.value })
-                }
-                className="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-2.5 text-white focus:border-white/50 focus:ring-2 focus:ring-white/10 outline-none transition-all"
-                required
-              >
-                <option value="" className="text-ink bg-white">Select...</option>
-                <option value="collaboration" className="text-ink bg-white">Find collaborators</option>
-                <option value="visibility" className="text-ink bg-white">Increase visibility</option>
-                <option value="funding" className="text-ink bg-white">Find funding opportunities</option>
-                <option value="feedback" className="text-ink bg-white">Get feedback on research</option>
-                <option value="networking" className="text-ink bg-white">Professional networking</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-white mb-2">
-                Institution Type *
+                {SURVEY.institutionType.label} *
               </label>
               <select
                 value={survey.institutionType}
-                onChange={(e) =>
-                  setSurvey({ ...survey, institutionType: e.target.value })
-                }
+                onChange={(e) => setSurvey({ ...survey, institutionType: e.target.value })}
                 className="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-2.5 text-white focus:border-white/50 focus:ring-2 focus:ring-white/10 outline-none transition-all"
                 required
               >
-                <option value="" className="text-ink bg-white">Select...</option>
-                <option value="university" className="text-ink bg-white">University</option>
-                <option value="research_institute" className="text-ink bg-white">Research Institute</option>
-                <option value="industry_research" className="text-ink bg-white">Industry Research</option>
-                <option value="nonprofit" className="text-ink bg-white">Nonprofit / NGO</option>
-                <option value="government" className="text-ink bg-white">Government Lab</option>
-                <option value="other" className="text-ink bg-white">Other</option>
+                <option value="" className="text-ink bg-white">Select…</option>
+                {SURVEY.institutionType.options.map((o) => (
+                  <option key={o.value} value={o.value} className="text-ink bg-white">
+                    {o.label}
+                  </option>
+                ))}
               </select>
+            </div>
+
+            {/* Biggest challenge — optional open-ended */}
+            <div>
+              <label className="block text-sm font-medium text-white mb-2">
+                {SURVEY.biggestChallenge.label}
+                <span className="ml-1 text-white/40 font-normal">(optional)</span>
+              </label>
+              <textarea
+                value={survey.biggestChallenge}
+                onChange={(e) => setSurvey({ ...survey, biggestChallenge: e.target.value })}
+                placeholder={SURVEY.biggestChallenge.placeholder}
+                rows={3}
+                className="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-2.5 text-white placeholder:text-white/40 focus:border-white/50 focus:ring-2 focus:ring-white/10 outline-none transition-all resize-none"
+              />
             </div>
 
             <button
@@ -247,12 +241,12 @@ export default function SignUpForm() {
               disabled={surveyLoading}
               className="w-full rounded-full bg-white px-6 py-3 text-purple-dark font-medium shadow-lg transition-all hover:bg-purple-light disabled:opacity-60 mt-6"
             >
-              {surveyLoading ? "Submitting..." : "Submit"}
+              {surveyLoading ? SURVEY.submitting : SURVEY.submit}
             </button>
 
-            <p className="text-xs text-white/40 text-center">
+            {/* <p className="text-xs text-white/40 text-center">
               Skip this step →
-            </p>
+            </p> */}
           </form>
         ) : (
           <div className="mt-8 space-y-4">

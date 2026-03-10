@@ -159,6 +159,40 @@ export const SIGNUP = {
   shareCopied: "Link copied!",
 };
 
+export const SURVEY = {
+  intro: "Help us understand your research better (1 min)",
+  careerStage: {
+    label: "Career stage",
+    options: [
+      { value: "phd", label: "PhD student" },
+      { value: "postdoc", label: "Postdoc" },
+      { value: "faculty", label: "Faculty" },
+      { value: "industry_researcher", label: "Industry researcher" },
+      { value: "other", label: "Other" },
+    ],
+  },
+  field: {
+    label: "Research field",
+    placeholder: "e.g., Neuroscience, Biophysics, Climate Science…",
+  },
+  institutionType: {
+    label: "Institution type",
+    options: [
+      { value: "r1_university", label: "R1 University" },
+      { value: "smaller_college", label: "Smaller college" },
+      { value: "industry", label: "Industry" },
+      { value: "government_lab", label: "Government lab" },
+      { value: "other", label: "Other" },
+    ],
+  },
+  biggestChallenge: {
+    label: "What's the biggest challenge you face sharing your research outside your immediate network?",
+    placeholder: "Optional — share as much or as little as you'd like.",
+  },
+  submit: "Submit",
+  submitting: "Submitting…",
+};
+
 export const BOOK_CALL = {
   heading: "Talk to the team.",
   sub: "Have questions or want to learn more? Book a 15-minute call with us — we'd love to hear about your research.",
