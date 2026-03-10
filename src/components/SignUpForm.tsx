@@ -119,8 +119,11 @@ export default function SignUpForm() {
   };
 
   return (
-    <section id="signup" className="bg-purple-dark px-6 py-20 md:px-12 lg:px-20">
-      <div className="mx-auto max-w-xl text-center">
+    <section id="signup" className="relative overflow-hidden bg-ink px-6 py-20 md:px-12 lg:px-20">
+      {/* Subtle glow */}
+      <div className="pointer-events-none absolute top-1/2 left-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple/8 blur-3xl" />
+      
+      <div className="relative mx-auto max-w-xl text-center">
         <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold tracking-tight text-white md:text-4xl">
           {SIGNUP.heading}
         </h2>
@@ -241,9 +244,9 @@ export default function SignUpForm() {
               {surveyLoading ? SURVEY.submitting : SURVEY.submit}
             </button>
 
-            <p className="text-xs text-white/40 text-center">
+            {/* <p className="text-xs text-white/40 text-center">
               Skip this step →
-            </p>
+            </p> */}
           </form>
         ) : (
           <div className="mt-8 space-y-4">
