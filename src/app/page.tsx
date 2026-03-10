@@ -6,6 +6,7 @@ import HowItWorks from "@/components/HowItWorks";
 import WhoItsFor from "@/components/WhoItsFor";
 import Mission from "@/components/Mission";
 import ProofBar from "@/components/ProofBar";
+import BookCall from "@/components/BookCall";
 import SignUpForm from "@/components/SignUpForm";
 import Footer from "@/components/Footer";
 
@@ -24,6 +25,7 @@ export default function Home() {
       <WhoItsFor />
       <Mission />
       <ProofBar />
+      <BookCall />
       <SignUpForm />
       <Footer />
     </>

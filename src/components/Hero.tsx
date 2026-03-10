@@ -18,6 +18,10 @@ export default function Hero() {
     document.getElementById("signup")?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <section className="relative overflow-hidden bg-white px-6 pt-8 pb-20 md:px-12 lg:px-20">
       {/* Subtle organic background decoration */}
@@ -39,12 +43,34 @@ export default function Hero() {
             Glialink
           </span>
         </div>
-        <button
-          onClick={scrollToSignup}
-          className="rounded-full bg-purple px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-purple-dark hover:shadow-lg hover:shadow-purple/20"
-        >
-          {HERO.cta}
-        </button>
+
+        {/* Nav links */}
+        <div className="flex items-center gap-1 md:gap-2">
+          <button
+            onClick={() => scrollTo("problem")}
+            className="rounded-full px-4 py-2 text-sm font-medium text-gray transition-colors hover:bg-purple-light hover:text-ink"
+          >
+            {NAV.about}
+          </button>
+          <button
+            onClick={() => {/* Demo modal — implementation in next PR */}}
+            className="rounded-full px-4 py-2 text-sm font-medium text-gray transition-colors hover:bg-purple-light hover:text-ink"
+          >
+            {NAV.demo}
+          </button>
+          <button
+            onClick={() => scrollTo("book-call")}
+            className="rounded-full px-4 py-2 text-sm font-medium text-gray transition-colors hover:bg-purple-light hover:text-ink"
+          >
+            {NAV.bookCall}
+          </button>
+          <button
+            onClick={scrollToSignup}
+            className="ml-2 rounded-full bg-purple px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-purple-dark hover:shadow-lg hover:shadow-purple/20"
+          >
+            {HERO.cta}
+          </button>
+        </div>
       </nav>
 
       {/* Hero content */}
