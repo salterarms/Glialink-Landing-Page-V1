@@ -119,12 +119,12 @@ export default function SignUpForm() {
   };
 
   return (
-    <section id="signup" className="bg-white px-6 py-20 md:px-12 lg:px-20">
+    <section id="signup" className="bg-purple-dark px-6 py-20 md:px-12 lg:px-20">
       <div className="mx-auto max-w-xl text-center">
-        <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold tracking-tight text-ink md:text-4xl">
+        <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold tracking-tight text-white md:text-4xl">
           {SIGNUP.heading}
         </h2>
-        <p className="mt-4 text-lg text-gray">{SIGNUP.sub}</p>
+        <p className="mt-4 text-lg text-white/70">{SIGNUP.sub}</p>
 
         {!submitted ? (
           <form onSubmit={handleSubmit} className="mt-8">
@@ -136,12 +136,12 @@ export default function SignUpForm() {
                 onChange={(e) => setEmail(e.target.value)}
                 onFocus={() => event("form_start", { variant })}
                 placeholder={SIGNUP.placeholder}
-                className="flex-1 rounded-full border border-border bg-white px-5 py-3.5 text-base text-ink placeholder:text-gray-light outline-none transition-all focus:border-purple focus:ring-2 focus:ring-purple/20"
+                className="flex-1 rounded-full border border-white/20 bg-white/10 px-5 py-3.5 text-base text-white placeholder:text-white/40 outline-none transition-all focus:border-white/50 focus:ring-2 focus:ring-white/10"
               />
               <button
                 type="submit"
                 disabled={loading}
-                className="rounded-full bg-gradient-to-b from-purple to-purple-dark px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-purple/25 transition-all hover:shadow-xl hover:shadow-purple/30 hover:brightness-110 disabled:opacity-60"
+                className="rounded-full bg-white px-8 py-3.5 text-base font-semibold text-purple-dark shadow-lg transition-all hover:shadow-xl hover:bg-purple-light disabled:opacity-60"
               >
                 {loading ? "..." : SIGNUP.cta}
               </button>
@@ -152,19 +152,19 @@ export default function SignUpForm() {
           </form>
         ) : showSurvey ? (
           <form onSubmit={handleSurveySubmit} className="mt-8 space-y-4 text-left">
-            <div className="rounded-2xl border border-purple/20 bg-purple-light p-6 text-center mb-6">
-              <h3 className="font-[family-name:var(--font-heading)] text-xl font-semibold text-ink">
+            <div className="rounded-2xl border border-white/20 bg-white/10 p-6 text-center mb-6">
+              <h3 className="font-[family-name:var(--font-heading)] text-xl font-semibold text-white">
                 {SIGNUP.successHeading}
               </h3>
-              <p className="mt-2 text-gray">{SIGNUP.successMessage}</p>
+              <p className="mt-2 text-white/70">{SIGNUP.successMessage}</p>
             </div>
 
-            <p className="text-sm text-gray text-center mb-4">
+            <p className="text-sm text-white/60 text-center mb-4">
               Help us understand your research better (1 min)
             </p>
 
             <div>
-              <label className="block text-sm font-medium text-ink mb-2">
+              <label className="block text-sm font-medium text-white mb-2">
                 Career Stage *
               </label>
               <select
@@ -172,21 +172,21 @@ export default function SignUpForm() {
                 onChange={(e) =>
                   setSurvey({ ...survey, careerStage: e.target.value })
                 }
-                className="w-full rounded-lg border border-border px-4 py-2.5 text-ink bg-white focus:border-purple focus:ring-2 focus:ring-purple/20 outline-none transition-all"
+                className="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-2.5 text-white focus:border-white/50 focus:ring-2 focus:ring-white/10 outline-none transition-all"
                 required
               >
-                <option value="">Select...</option>
-                <option value="undergrad">Undergraduate Student</option>
-                <option value="grad">Graduate Student</option>
-                <option value="postdoc">Postdoc / Early Career</option>
-                <option value="faculty">Faculty</option>
-                <option value="industry">Industry Researcher</option>
-                <option value="other">Other</option>
+                <option value="" className="text-ink bg-white">Select...</option>
+                <option value="undergrad" className="text-ink bg-white">Undergraduate Student</option>
+                <option value="grad" className="text-ink bg-white">Graduate Student</option>
+                <option value="postdoc" className="text-ink bg-white">Postdoc / Early Career</option>
+                <option value="faculty" className="text-ink bg-white">Faculty</option>
+                <option value="industry" className="text-ink bg-white">Industry Researcher</option>
+                <option value="other" className="text-ink bg-white">Other</option>
               </select>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-ink mb-2">
+              <label className="block text-sm font-medium text-white mb-2">
                 Field of Research *
               </label>
               <input
@@ -194,13 +194,13 @@ export default function SignUpForm() {
                 value={survey.field}
                 onChange={(e) => setSurvey({ ...survey, field: e.target.value })}
                 placeholder="e.g., Neuroscience, Biophysics, etc."
-                className="w-full rounded-lg border border-border px-4 py-2.5 text-ink bg-white placeholder:text-gray-light focus:border-purple focus:ring-2 focus:ring-purple/20 outline-none transition-all"
+                className="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-2.5 text-white placeholder:text-white/40 focus:border-white/50 focus:ring-2 focus:ring-white/10 outline-none transition-all"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-ink mb-2">
+              <label className="block text-sm font-medium text-white mb-2">
                 Primary Interest Reason *
               </label>
               <select
@@ -208,20 +208,20 @@ export default function SignUpForm() {
                 onChange={(e) =>
                   setSurvey({ ...survey, interestReason: e.target.value })
                 }
-                className="w-full rounded-lg border border-border px-4 py-2.5 text-ink bg-white focus:border-purple focus:ring-2 focus:ring-purple/20 outline-none transition-all"
+                className="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-2.5 text-white focus:border-white/50 focus:ring-2 focus:ring-white/10 outline-none transition-all"
                 required
               >
-                <option value="">Select...</option>
-                <option value="collaboration">Find collaborators</option>
-                <option value="visibility">Increase visibility</option>
-                <option value="funding">Find funding opportunities</option>
-                <option value="feedback">Get feedback on research</option>
-                <option value="networking">Professional networking</option>
+                <option value="" className="text-ink bg-white">Select...</option>
+                <option value="collaboration" className="text-ink bg-white">Find collaborators</option>
+                <option value="visibility" className="text-ink bg-white">Increase visibility</option>
+                <option value="funding" className="text-ink bg-white">Find funding opportunities</option>
+                <option value="feedback" className="text-ink bg-white">Get feedback on research</option>
+                <option value="networking" className="text-ink bg-white">Professional networking</option>
               </select>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-ink mb-2">
+              <label className="block text-sm font-medium text-white mb-2">
                 Institution Type *
               </label>
               <select
@@ -229,42 +229,42 @@ export default function SignUpForm() {
                 onChange={(e) =>
                   setSurvey({ ...survey, institutionType: e.target.value })
                 }
-                className="w-full rounded-lg border border-border px-4 py-2.5 text-ink bg-white focus:border-purple focus:ring-2 focus:ring-purple/20 outline-none transition-all"
+                className="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-2.5 text-white focus:border-white/50 focus:ring-2 focus:ring-white/10 outline-none transition-all"
                 required
               >
-                <option value="">Select...</option>
-                <option value="university">University</option>
-                <option value="research_institute">Research Institute</option>
-                <option value="industry_research">Industry Research</option>
-                <option value="nonprofit">Nonprofit / NGO</option>
-                <option value="government">Government Lab</option>
-                <option value="other">Other</option>
+                <option value="" className="text-ink bg-white">Select...</option>
+                <option value="university" className="text-ink bg-white">University</option>
+                <option value="research_institute" className="text-ink bg-white">Research Institute</option>
+                <option value="industry_research" className="text-ink bg-white">Industry Research</option>
+                <option value="nonprofit" className="text-ink bg-white">Nonprofit / NGO</option>
+                <option value="government" className="text-ink bg-white">Government Lab</option>
+                <option value="other" className="text-ink bg-white">Other</option>
               </select>
             </div>
 
             <button
               type="submit"
               disabled={surveyLoading}
-              className="w-full rounded-full bg-gradient-to-b from-purple to-purple-dark px-6 py-3 text-white font-medium shadow-lg shadow-purple/25 transition-all hover:brightness-110 disabled:opacity-60 mt-6"
+              className="w-full rounded-full bg-white px-6 py-3 text-purple-dark font-medium shadow-lg transition-all hover:bg-purple-light disabled:opacity-60 mt-6"
             >
               {surveyLoading ? "Submitting..." : "Submit"}
             </button>
 
-            <p className="text-xs text-gray-light text-center">
+            <p className="text-xs text-white/40 text-center">
               Skip this step →
             </p>
           </form>
         ) : (
           <div className="mt-8 space-y-4">
-            <div className="rounded-2xl border border-purple/20 bg-purple-light p-6">
-              <h3 className="font-[family-name:var(--font-heading)] text-xl font-semibold text-ink">
+            <div className="rounded-2xl border border-white/20 bg-white/10 p-6">
+              <h3 className="font-[family-name:var(--font-heading)] text-xl font-semibold text-white">
                 {SIGNUP.successHeading}
               </h3>
-              <p className="mt-2 text-gray">{SIGNUP.successMessage}</p>
+              <p className="mt-2 text-white/70">{SIGNUP.successMessage}</p>
             </div>
             <button
               onClick={handleCopyLink}
-              className="rounded-full border border-purple/30 px-6 py-2.5 text-sm font-medium text-purple transition-colors hover:bg-purple-light"
+              className="rounded-full border border-white/30 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/10"
             >
               {copied ? SIGNUP.shareCopied : SIGNUP.shareButton}
             </button>

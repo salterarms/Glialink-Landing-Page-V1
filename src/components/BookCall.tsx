@@ -6,8 +6,8 @@ import { BOOK_CALL } from "@/lib/copy";
 
 export default function BookCall() {
   return (
-    <section id="book-call" className="bg-white px-6 py-20 md:px-12 lg:px-20">
-      <div className="mx-auto max-w-xl text-center">
+    <section id="book-call" className="bg-white flex min-h-screen items-center justify-center px-6 py-20 md:px-12 lg:px-20">
+      <div className="mx-auto max-w-xl w-full text-center">
         <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold tracking-tight text-ink md:text-4xl">
           {BOOK_CALL.heading}
         </h2>
