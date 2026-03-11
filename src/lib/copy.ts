@@ -199,7 +199,7 @@ export const BOOK_CALL = {
   cta: "Book a 15-min call",
   ctaSub: "Pick a time that works for you.",
   // Calendly scheduling URL (public — safe to expose to client)
-  calendlyUrl: "https://calendly.com/salter_arms-brown/30min",
+  calendlyUrl: "https://calendly.com/salter_arms-brown/new-meeting?month=2026-03",
 };
 
 export const FOOTER = {

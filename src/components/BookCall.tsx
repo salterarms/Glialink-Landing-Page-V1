@@ -4,8 +4,8 @@ import { useEffect } from "react";
 import { BOOK_CALL } from "@/lib/copy";
 
 // Calendly inline widget — loads their scheduler directly on the page.
-// No API key needed for the embed. The webhook handler at
-// /api/calendly/webhook receives booking events server-side.
+// No server setup needed — users can book calls directly from the embed.
+// Booking data is stored in your Calendly dashboard automatically.
 
 export default function BookCall() {
   useEffect(() => {
