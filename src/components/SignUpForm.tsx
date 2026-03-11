@@ -155,11 +155,18 @@ export default function SignUpForm() {
           </button>
         </div>
 
+        {/* Divider */}
+        <div className="mt-8 flex items-center gap-4">
+          <div className="h-px flex-1 bg-white/10" />
+          <span className="text-xs text-white/30 uppercase tracking-widest">or join the waitlist</span>
+          <div className="h-px flex-1 bg-white/10" />
+        </div>
+
         {/* Waitlist form */}
-        <div className="mt-8">
+        <div className="mt-6">
           {!submitted ? (
             <form onSubmit={handleSubmit} className="space-y-3">
-              <div className="flex flex-col gap-3 sm:flex-row">
+              <div className="flex flex-col gap-3">
                 <input
                   type="text"
                   required

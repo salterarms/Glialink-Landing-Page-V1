@@ -11,16 +11,16 @@ export default function Mission() {
           {MISSION.heading}
         </h2>
 
-        <div className="mt-10 space-y-5 text-left">
+        <div className="mt-10 space-y-4 text-left">
           {MISSION.paragraphs.map((p, i) => (
             <p
               key={i}
-              className={`leading-relaxed text-white/70 ${
+              className={`leading-relaxed ${
                 // Short punchy lines ("I was wrong.", "I want to change that.")
-                // get bigger treatment
+                // get visual emphasis
                 p.length < 40
-                  ? "text-xl font-semibold text-white/90 not-italic"
-                  : "text-lg"
+                  ? "text-xl font-semibold text-white"
+                  : "text-base text-white/70"
               }`}
             >
               {p}

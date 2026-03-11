@@ -75,7 +75,7 @@ export default function Hero() {
 
       {/* Hero content */}
       <div className="relative z-10 mx-auto max-w-3xl text-center">
-        <h1 className="font-[family-name:var(--font-heading)] text-4xl font-bold tracking-tight text-ink md:text-5xl lg:text-6xl">
+        <h1 className="font-[family-name:var(--font-heading)] text-3xl font-bold tracking-tight text-ink text-balance md:text-4xl lg:text-5xl">
           {HERO.headline}
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg text-gray md:text-xl">
