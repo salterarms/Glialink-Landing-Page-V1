@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { HERO, NAV } from "@/lib/copy";
 import { event } from "@/lib/analytics";
 import { getVariant } from "@/lib/variants";
@@ -52,12 +53,12 @@ export default function Hero() {
           >
             {NAV.about}
           </button>
-          <button
-            onClick={() => {/* Demo modal — implementation in next PR */}}
+          <Link
+            href="/researcher/elise-kapshtica"
             className="rounded-full px-4 py-2 text-sm font-medium text-gray transition-colors hover:bg-purple-light hover:text-ink"
           >
             {NAV.demo}
-          </button>
+          </Link>
           <button
             onClick={() => scrollTo("book-call")}
             className="rounded-full px-4 py-2 text-sm font-medium text-gray transition-colors hover:bg-purple-light hover:text-ink"
@@ -89,12 +90,12 @@ export default function Hero() {
             >
               {HERO.cta}
             </button>
-            <button
-              onClick={() => {/* Example modal — implementation in next PR */}}
+            <Link
+              href="/researcher/elise-kapshtica"
               className="rounded-full border border-purple/30 bg-white px-8 py-4 text-lg font-semibold text-purple transition-all hover:border-purple/60 hover:bg-purple-light hover:shadow-md"
             >
               {HERO.ctaSecondary}
-            </button>
+            </Link>
           </div>
           <p className="text-sm text-gray-light">{HERO.ctaSub}</p>
         </div>
