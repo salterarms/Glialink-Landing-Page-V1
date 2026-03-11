@@ -14,19 +14,13 @@ export default function Problem() {
               <div className="mt-1.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-purple/10">
                 <div className="h-2.5 w-2.5 rounded-full bg-purple" />
               </div>
-              <p className="text-lg leading-relaxed text-ink/80">{beat.text}</p>
+              <p className="text-lg leading-relaxed text-ink/80">
+                <span className="font-semibold text-ink">{beat.title} </span>
+                {beat.text}
+              </p>
             </div>
           ))}
         </div>
-
-        <blockquote className="mt-12 border-l-4 border-purple pl-6">
-          <p className="text-xl font-medium italic text-ink">
-            {PROBLEM.pullQuote.text}
-          </p>
-          <cite className="mt-2 block text-sm not-italic text-gray">
-            {PROBLEM.pullQuote.source}
-          </cite>
-        </blockquote>
       </div>
     </section>
   );
