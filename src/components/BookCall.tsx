@@ -1,32 +1,24 @@
 "use client";
 
-import { useEffect } from "react";
 import { BOOK_CALL } from "@/lib/copy";
 
-// Calendly inline widget — loads their scheduler directly on the page.
-// No server setup needed — users can book calls directly from the embed.
-// Booking data is stored in your Calendly dashboard automatically.
+// Calendly inline embed via iframe — more reliable than the widget.js script
+// approach in Next.js App Router (strict mode double-mount strips the script
+// before Calendly can initialize the widget div).
+//
+// The iframe approach works identically, requires no JS loading,
+// and survives client-side navigation without reinit issues.
 
 export default function BookCall() {
-  useEffect(() => {
-    // Inject Calendly widget script once
-    if (document.querySelector('script[src*="calendly.com"]')) return;
-
-    const script = document.createElement("script");
-    script.src = "https://assets.calendly.com/assets/external/widget.js";
-    script.async = true;
-    document.body.appendChild(script);
-
-    return () => {
-      const existing = document.querySelector('script[src*="calendly.com"]');
-      if (existing) document.body.removeChild(existing);
-    };
-  }, []);
+  // Strip any hardcoded ?month= param so the calendar always opens on the
+  // current month. The embed params are appended separately.
+  const baseUrl = BOOK_CALL.calendlyUrl.split("?")[0];
+  const embedUrl = `${baseUrl}?embed_type=Inline&hide_landing_page_details=1&hide_gdpr_banner=1&primary_color=7C5CFC`;
 
   return (
     <section
       id="book-call"
-      className="flex min-h-screen flex-col items-center justify-center bg-white px-6 py-20 md:px-12 lg:px-20"
+      className="bg-white px-6 py-20 md:px-12 lg:px-20"
     >
       <div className="mx-auto w-full max-w-3xl text-center">
         <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold tracking-tight text-ink md:text-4xl">
@@ -34,12 +26,17 @@ export default function BookCall() {
         </h2>
         <p className="mt-4 text-lg text-gray">{BOOK_CALL.sub}</p>
 
-        {/* Calendly inline widget */}
-        <div
-          className="calendly-inline-widget mt-10 w-full overflow-hidden rounded-2xl border border-border shadow-sm"
-          data-url={BOOK_CALL.calendlyUrl}
-          style={{ minWidth: "320px", height: "700px" }}
-        />
+        <div className="mt-10 overflow-hidden rounded-2xl border border-border shadow-sm">
+          <iframe
+            src={embedUrl}
+            width="100%"
+            height="700"
+            scrolling="no"
+            frameBorder="0"
+            title="Schedule a call with Glialink"
+            className="block w-full"
+          />
+        </div>
       </div>
     </section>
   );

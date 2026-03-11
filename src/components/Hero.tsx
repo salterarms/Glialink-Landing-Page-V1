@@ -75,19 +75,27 @@ export default function Hero() {
 
       {/* Hero content */}
       <div className="relative z-10 mx-auto max-w-3xl text-center">
-        <h1 className="font-[family-name:var(--font-heading)] text-4xl font-bold tracking-tight text-ink md:text-5xl lg:text-6xl">
+        <h1 className="font-[family-name:var(--font-heading)] text-3xl font-bold tracking-tight text-ink text-balance md:text-4xl lg:text-5xl">
           {HERO.headline}
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg text-gray md:text-xl">
           {HERO.sub}
         </p>
-        <div className="mt-10 flex flex-col items-center gap-3">
-          <button
-            onClick={scrollToSignup}
-            className="rounded-full bg-gradient-to-b from-purple to-purple-dark px-8 py-4 text-lg font-semibold text-white shadow-lg shadow-purple/25 transition-all hover:shadow-xl hover:shadow-purple/30 hover:brightness-110"
-          >
-            {HERO.cta}
-          </button>
+        <div className="mt-10 flex flex-col items-center gap-4">
+          <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+            <button
+              onClick={scrollToSignup}
+              className="rounded-full bg-gradient-to-b from-purple to-purple-dark px-8 py-4 text-lg font-semibold text-white shadow-lg shadow-purple/25 transition-all hover:shadow-xl hover:shadow-purple/30 hover:brightness-110"
+            >
+              {HERO.cta}
+            </button>
+            <button
+              onClick={() => {/* Example modal — implementation in next PR */}}
+              className="rounded-full border border-purple/30 bg-white px-8 py-4 text-lg font-semibold text-purple transition-all hover:border-purple/60 hover:bg-purple-light hover:shadow-md"
+            >
+              {HERO.ctaSecondary}
+            </button>
+          </div>
           <p className="text-sm text-gray-light">{HERO.ctaSub}</p>
         </div>
       </div>

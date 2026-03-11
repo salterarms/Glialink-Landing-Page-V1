@@ -7,9 +7,9 @@
 // ============================================================
 
 export const SITE = {
-  title: "Glialink — Your research deserves more than a PDF and a prayer",
+  title: "Glialink — Share your research the right way.",
   description:
-    "Turn your publications into living project pages that bring the right collaborators to you. Free early access for researchers.",
+    "Glialink turns your paper, abstract, and link into a living online page with clear asks and active context, so your network knows who can help, and how to help.",
   url: "https://glialink.com",
 };
 
@@ -20,138 +20,193 @@ export const NAV = {
   bookCall: "Book a Call",
 };
 
+// ── SECTION 1 — HERO ────────────────────────────────────────
 export const HERO = {
-  headline: "Your research deserves more than a PDF and a prayer.",
-  sub: "You share your work at conferences and online. A few nods, maybe some likes — then silence. Glialink turns your publications into living project pages that actually bring the right people to you.",
+  headline:
+    "Share your research the right way. Get the collaborators, students, and support you've been missing.",
+  sub: "Glialink turns your paper, abstract, and link into a living online page with clear asks and active context, so your network knows who can help, and how to help.",
   cta: "Get early access",
+  ctaSecondary: "See an example →",
   ctaSub:
-    "Free. 30 seconds. We're students building this — come shape it with us.",
+    "We're students and would appreciate your feedback. Help us determine how Glialink supports your work.",
 };
 
+// ── SECTION 2 — THE PROBLEM ─────────────────────────────────
 export const PROBLEM = {
-  heading: "The follow-up problem isn't just conferences. It's everywhere.",
+  heading:
+    "Your publications are hidden, dense, and static. There are people who want to help, but you just aren't giving them the chance.",
   beats: [
     {
-      text: "You present a poster. Great conversations. \"Let's collaborate!\" You follow up. Silence. Not because they didn't care — because there's no system for what comes next.",
+      title: "At conferences",
+      text: "you remember the conversations you didn't get to have. The few contacts you made have no easy way to follow up.",
     },
     {
-      text: "But it's not just conferences. You share your paper on LinkedIn. A few likes from people you already know. Zero from the people who could actually move your work forward. A flat PDF gives readers no way to act.",
+      title: "After publishing",
+      text: "your social posts get fifteen views. Supporters exist, they just can't engage with a 20-page PDF.",
     },
     {
-      text: "The people who could help — collaborators, mentors, students, funders — are out there. Many are one or two warm introductions away. But there's no bridge between your work and their attention.",
+      title: "Finding collaborators",
+      text: "whether it's a student, a co-author, or a domain expert, the right connection is always one person away with no reliable path to get there.",
     },
   ],
-  pullQuote: {
-    text: "\"I don't know of many successful collaborations that started with a cold email.\"",
-    source: "— r/PhD",
-  },
 };
 
+// ── SECTION 3 — THE PRODUCT ─────────────────────────────────
 export const SOLUTION = {
-  heading: "A home for your research that actually works for you.",
+  heading: "A home for your research that enables real collaboration.",
   items: [
     {
       title: "Project pages, not PDFs",
       description:
-        "Something worth sharing — not a paywalled link that leads to a dead end.",
+        "Something worth sharing — future directions, your mission, concise summaries. Your work, made legible to anyone.",
       icon: "page" as const,
     },
     {
       title: "Say what you actually need",
       description:
-        "Structured asks so people know exactly how they can help — collaborators, recruits, expertise, funding.",
+        "Structured asks so people know exactly how they can help: collaborators, student recruits, specific expertise, funding leads.",
       icon: "ask" as const,
     },
     {
       title: "Warm intros, not cold emails",
       description:
-        "Introductions that come with context, through people who already know you.",
+        "Introductions that come with context, through people who already trust each other. Your second-degree network, activated.",
       icon: "intro" as const,
     },
   ],
 };
 
+// ── SECTION 4 — HOW IT WORKS ────────────────────────────────
 export const HOW_IT_WORKS = {
   heading: "Three steps. Two minutes. One link.",
   steps: [
     {
       number: "01",
-      title: "Share what you've got",
+      title: "Share what you already have",
       description:
-        "Upload your poster, paper, abstract, or paste a link. We turn it into a clean project page.",
+        "Upload your poster, paper, or abstract — or paste a link. We turn it into a clean project page that actually represents your work.",
     },
     {
       number: "02",
-      title: "Tell people what you need",
+      title: "Tell us what you need",
       description:
-        "Add structured asks — collaborators, student recruits, specific expertise, funding leads.",
+        "Add structured asks: collaborators, student volunteers, specific expertise, funding leads. Your colleagues will know exactly who can help.",
     },
     {
       number: "03",
       title: "Share it everywhere",
       description:
-        "Conference, LinkedIn, email signature — interest flows back to you, organized and actionable.",
+        "Conference QR code. Email signature. Social feeds. One link — your work, your asks, your story.",
     },
   ],
 };
 
+// ── SECTION 5 — WHO IT'S FOR ────────────────────────────────
 export const WHO_ITS_FOR = {
-  heading: "Built for the researchers who need it most.",
+  heading:
+    "Built for the researchers who want to mobilize their research but don't know how",
   personas: [
+    {
+      title: "Student research assistants",
+      description:
+        "You're doing important work, but don't know where and how to share it. You are invisible to prospective labs, and want to find opportunities authentically — not through cold emails. You see other ways to support your lab — recruiting participants, recommending research assistants, maintaining an online presence — but legacy research norms keep you confined.",
+      icon: "assistant" as const,
+      quote:
+        "\"I've recently been through that whole process of trying to find a lab, emailing a million PIs, and none of them email you back. You're like, okay, what do I do now?\"",
+      quoteSource: "Neuroscience PhD student, Stony Brook University",
+    },
     {
       title: "Grad students & postdocs",
       description:
-        "You represent your lab at conferences and online. Your network is still small. Glialink gives your work reach beyond your advisor's rolodex.",
+        "You're seeking more opportunities to publish, scale your impact, and build support for your research. You see the value of online personal branding, but your network is spread across 5 platforms. Your work's reach is constrained to your advisor's contacts, and your supporters don't exist beyond your lab mates.",
       icon: "student" as const,
+      quote:
+        "Over 95% of academics in one survey use at least one social or networking site professionally, and about 70% agree that they need to do more promotion of their work via such channels.",
+      quoteSource: "¹",
     },
     {
       title: "Conference presenters",
       description:
-        "Your poster session is 3 hours. The people who need to see your work are everywhere. Give your research a permanent, shareable home.",
+        "Your publication took years, and you spent days making it presentable just for the 10 attendees to see. Your networks exist online, but your work exists in person. For those who do connect? They have no idea how they can help, and you rarely follow up.",
       icon: "presenter" as const,
+      quote:
+        "62.5% said immediately after the event they would keep in touch, but at a 3-month follow-up only 25% still agreed — and 37.5% disagreed or strongly disagreed.",
+      quoteSource: "²",
     },
     {
       title: "Principal Investigators",
       description:
-        "Your trainees are your lab's ambassadors. Give them a better tool than a PDF and a QR code linking to a paywall.",
+        "You have spent years building connections at conferences and online, just to maintain a few. Your supporting cast doesn't see or understand your work and is given no real opportunity to help. Meanwhile, your lab wants to help you build an online presence, surface meaningful collaborations, and find purposeful recruits — you just haven't considered the possibility.",
       icon: "pi" as const,
+      quote:
+        "\"Faculty have a very hard time finding good people… finding people who are a good fit for their programs.\"",
+      quoteSource: "Researcher at the Medical University of South Carolina",
     },
   ],
 };
 
+// ── SECTION 6 — MISSION / TRUST ─────────────────────────────
 export const MISSION = {
-  heading: "We're researchers too. Here's why we're building this.",
+  heading: "Here is why we are building this.",
   paragraphs: [
-    "We're students at Brown who watched these problems play out in our own research. Lost follow-ups after every conference. LinkedIn posts that vanish into the feed. Cold emails that go nowhere.",
-    "We believe research shouldn't operate in silos. The outdated ways researchers connect aren't enough — especially now, when funding is under pressure and the ecosystem needs to come together more than ever.",
-    "So we're building the first project-sharing network where researchers communicate their work in digestible ways, find collaborators through warm paths, and make their impact visible beyond citation counts.",
+    "I'm Salter, a neuroscience student at Brown who was once enraptured by the wide world of research. I saw a potential career of innovation with the prospect of building a better world. I thought it was my path to impact.",
+    "I was wrong.",
+    "Turned away at every corner, I struggled to find my fit and found no way in. Hundreds of outdated lab websites scoured and dozens of cold emails sent, I obtained three different research positions that offered zero sense of belonging.",
+    "An impenetrable field, inexplicable to exactly those it's built to support. Closed to those who want to help.",
+    "I want to change that.",
+    "After a year of obsessing over this problem and countless interviews and conversations with researchers, I reinforced my belief that the infrastructure for scientific connection is broken.",
+    "At Glialink, we believe a visible research ecosystem is a supportable one. We want to give students a clear path into the field, the public a sense of its importance, physicians clear takeaways from the work, and researchers a way to reliably lean on someone other than themselves.",
+    "A team of current and former student researchers, we are building what we wish existed.",
+    "With the long-term vision of an active online lab and researcher directory with clearly communicated needs, wants, and offerings, we are creating a more visible, coordinated, and supportable research ecosystem.",
+    "It all starts with one active project, one visible researcher profile, and your ideas and feedback.",
   ],
-  whyUs:
-    "Why trust a team of students? Because we're inside the problem. No legacy models to protect. Not another ResearchGate. Built on 30+ researcher interviews and a genuine belief that academia's connection layer is broken.",
 };
 
+// ── SECTION 7 — THE NUMBERS ─────────────────────────────────
 export const PROOF_BAR = {
   stats: [
     {
-      value: "~10",
-      label: "Average readers per published paper",
+      value: "60%",
+      label: "of academics say their research is difficult to use outside academia",
+      footnote: "45% also agree that papers are too long. In a 2021 survey of 1,500 academics across 100+ countries. ³",
     },
     {
-      value: "82%",
-      label: "Of papers are never cited",
+      value: "3 / 24",
+      label: "Median Twitter mentions / Mendeley readers per article",
+      footnote:
+        "Among 36,780 articles in emergency medicine journals (2013–2023) — only among articles that received any social attention at all. ⁴",
     },
     {
-      value: "90%",
-      label: "Of researchers use social media professionally",
+      value: "~1/3",
+      label: "of papers not cited within 5 years",
+      footnote:
+        "In the social and natural sciences. Noncitation rates as high as 82% in the humanities. ⁵",
+    },
+    {
+      value: "95%",
+      label: "of doctors want to learn about new clinical research",
+      footnote:
+        "70% feel overwhelmed by the volume — Doximity survey of 600 physicians across oncology, neurology, and more. ⁶",
+    },
+    {
+      value: "50+",
+      label: "researcher interviews at Brown, and beyond",
+      footnote: "Relentless curiosity, by yours truly ;)",
     },
   ],
 };
 
+// ── SECTION 8 — FINAL CTA ───────────────────────────────────
 export const SIGNUP = {
-  heading: "Come build this with us.",
-  sub: "Not a waitlist — a seat at the table. Join early and help shape what Glialink becomes.",
+  heading: "Join the waitlist, share our website, or speak to a founder.",
+  sub: "We would love to meet researchers struggling with the outlined problems above and ask a few questions to learn from your experiences. From our lab to yours, we deeply appreciate your support.",
+  namePlaceholder: "Your name",
+  institutionPlaceholder: "Your institution",
   placeholder: "your@email.edu",
-  cta: "Get early access",
+  phonePlaceholder: "Phone number (optional)",
+  cta: "Join the waitlist",
+  ctaSchedule: "Schedule a 15-min call",
+  ctaShare: "Share the page",
   successHeading: "You're in.",
   successMessage:
     "We'll be in touch soon. Know someone who'd care about this?",

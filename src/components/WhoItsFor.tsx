@@ -1,8 +1,20 @@
 import type { ReactNode } from "react";
 import { WHO_ITS_FOR } from "@/lib/copy";
 
-function PersonaIcon({ type }: { type: "student" | "presenter" | "pi" }) {
+function PersonaIcon({ type }: { type: "assistant" | "student" | "presenter" | "pi" }) {
   const paths: Record<string, ReactNode> = {
+    // Student research assistant — person with a link/connection
+    assistant: (
+      <path
+        d="M12 12a4 4 0 100-8 4 4 0 000 8zm-1 2h2m-1 0v5m-4 0h8M5 10H3m18 0h-2"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    ),
+    // Grad student / postdoc — mortarboard cap
     student: (
       <path
         d="M12 3L2 8l10 5 10-5-10-5zm0 0v13m-7-8.5v5c0 2.5 3.13 4.5 7 4.5s7-2 7-4.5v-5"
@@ -13,6 +25,7 @@ function PersonaIcon({ type }: { type: "student" | "presenter" | "pi" }) {
         strokeLinejoin="round"
       />
     ),
+    // Conference presenter — screen/presentation
     presenter: (
       <path
         d="M3 6h18v10H3V6zm9 10v4m-4 0h8M7 11h2m2 0h2m2 0h2"
@@ -23,6 +36,7 @@ function PersonaIcon({ type }: { type: "student" | "presenter" | "pi" }) {
         strokeLinejoin="round"
       />
     ),
+    // Principal Investigator — person with network connections
     pi: (
       <path
         d="M12 14a4 4 0 100-8 4 4 0 000 8zm-6 8a6 6 0 0112 0M2 10h3m14 0h3"
@@ -51,7 +65,7 @@ export default function WhoItsFor() {
           {WHO_ITS_FOR.heading}
         </h2>
 
-        <div className="mt-14 grid gap-8 md:grid-cols-3">
+        <div className="mt-14 grid gap-8 md:grid-cols-2">
           {WHO_ITS_FOR.personas.map((persona) => (
             <div
               key={persona.title}
@@ -64,6 +78,18 @@ export default function WhoItsFor() {
               <p className="mt-2 text-sm text-gray leading-relaxed">
                 {persona.description}
               </p>
+              {persona.quote && (
+                <blockquote className="mt-4 border-l-2 border-purple/30 pl-4">
+                  <p className="text-sm italic text-ink/70 leading-relaxed">
+                    {persona.quote}
+                  </p>
+                  {persona.quoteSource && (
+                    <cite className="mt-1 block text-xs not-italic text-gray-light">
+                      — {persona.quoteSource}
+                    </cite>
+                  )}
+                </blockquote>
+              )}
             </div>
           ))}
         </div>
