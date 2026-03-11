@@ -47,7 +47,13 @@ Supabase is an open-source Firebase alternative that provides:
 
 ## Step 2: Create Database Tables
 
-### In Supabase Dashboard
+> **Already have the tables from a previous setup?**
+> Skip to **Step 2b — Migration** below to add the new columns.
+> If you're starting fresh, run Step 2a.
+
+---
+
+### Step 2a — Fresh Install (new project)
 
 1. Go to **[supabase.com](https://supabase.com)** → Your project
 2. Click **SQL Editor** (left sidebar)
@@ -55,55 +61,105 @@ Supabase is an open-source Firebase alternative that provides:
 4. Paste this SQL and click **Run**:
 
 ```sql
--- Create email_signups table
+-- ================================================================
+-- email_signups
+-- Stores waitlist signups: name, institution, email, phone + UTM
+-- ================================================================
 CREATE TABLE email_signups (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  email VARCHAR(255) NOT NULL,
-  variant VARCHAR(50),
-  utm_source VARCHAR(100),
-  utm_medium VARCHAR(100),
-  utm_campaign VARCHAR(100),
-  utm_term VARCHAR(100),
-  utm_content VARCHAR(100),
-  referrer TEXT,
-  user_agent TEXT,
-  created_at TIMESTAMP DEFAULT NOW(),
-  updated_at TIMESTAMP DEFAULT NOW()
+  id            UUID          PRIMARY KEY DEFAULT gen_random_uuid(),
+  name          VARCHAR(255)  NOT NULL,
+  institution   VARCHAR(255)  NOT NULL,
+  email         VARCHAR(255)  NOT NULL,
+  phone         VARCHAR(30),                         -- optional
+  variant       VARCHAR(50),
+  utm_source    VARCHAR(100),
+  utm_medium    VARCHAR(100),
+  utm_campaign  VARCHAR(100),
+  utm_term      VARCHAR(100),
+  utm_content   VARCHAR(100),
+  referrer      TEXT,
+  user_agent    TEXT,
+  created_at    TIMESTAMPTZ   NOT NULL DEFAULT NOW(),
+  updated_at    TIMESTAMPTZ   NOT NULL DEFAULT NOW()
 );
 
--- Create index for fast email lookups
-CREATE INDEX idx_email_signups_email ON email_signups(email);
-CREATE INDEX idx_email_signups_created ON email_signups(created_at DESC);
+-- Prevent duplicate email signups
+CREATE UNIQUE INDEX idx_email_signups_email   ON email_signups(email);
+CREATE        INDEX idx_email_signups_created ON email_signups(created_at DESC);
 
--- Create survey_responses table (flexible JSONB for responses)
+-- ================================================================
+-- survey_responses
+-- Stores post-signup survey answers as flexible JSONB.
+-- Links back to email_signups via email.
+-- Current keys: careerStage, field, institutionType, biggestChallenge
+-- New questions can be added any time without a migration.
+-- ================================================================
 CREATE TABLE survey_responses (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  email VARCHAR(255) NOT NULL,
-  responses JSONB,
-  variant VARCHAR(50),
-  created_at TIMESTAMP DEFAULT NOW(),
-  updated_at TIMESTAMP DEFAULT NOW()
+  id          UUID         PRIMARY KEY DEFAULT gen_random_uuid(),
+  email       VARCHAR(255) NOT NULL,
+  responses   JSONB        NOT NULL DEFAULT '{}',
+  variant     VARCHAR(50),
+  created_at  TIMESTAMPTZ  NOT NULL DEFAULT NOW(),
+  updated_at  TIMESTAMPTZ  NOT NULL DEFAULT NOW()
 );
 
--- Create index for fast email lookups
-CREATE INDEX idx_survey_responses_email ON survey_responses(email);
+CREATE INDEX idx_survey_responses_email   ON survey_responses(email);
 CREATE INDEX idx_survey_responses_created ON survey_responses(created_at DESC);
+-- Fast querying into the JSONB blob (e.g. by careerStage)
+CREATE INDEX idx_survey_responses_jsonb   ON survey_responses USING GIN (responses);
 
--- Enable Row Level Security for security
-ALTER TABLE email_signups ENABLE ROW LEVEL SECURITY;
+-- ================================================================
+-- Row Level Security
+-- Service Role key (used in API routes) bypasses RLS automatically.
+-- This prevents any accidental client-side reads/deletes.
+-- ================================================================
+ALTER TABLE email_signups    ENABLE ROW LEVEL SECURITY;
 ALTER TABLE survey_responses ENABLE ROW LEVEL SECURITY;
 
--- Create policy to allow anonymous inserts (for form submissions)
-CREATE POLICY "Allow anonymous inserts on email_signups" ON email_signups
-  FOR INSERT
-  WITH CHECK (true);
+-- Allow the API (service role) to insert; block all other access
+CREATE POLICY "service_role inserts only — email_signups"
+  ON email_signups FOR INSERT WITH CHECK (true);
 
-CREATE POLICY "Allow anonymous inserts on survey_responses" ON survey_responses
-  FOR INSERT
-  WITH CHECK (true);
+CREATE POLICY "service_role inserts only — survey_responses"
+  ON survey_responses FOR INSERT WITH CHECK (true);
 ```
 
 5. Check that tables appear in **Table Editor** (left sidebar)
+
+---
+
+### Step 2b — Migration (tables already exist)
+
+If you already have `email_signups` from a previous setup, run this
+migration to add the three new columns without losing existing data:
+
+```sql
+-- Add name, institution, phone to existing email_signups table
+-- Safe to run even if columns were partially added (uses IF NOT EXISTS)
+
+ALTER TABLE email_signups
+  ADD COLUMN IF NOT EXISTS name        VARCHAR(255),
+  ADD COLUMN IF NOT EXISTS institution VARCHAR(255),
+  ADD COLUMN IF NOT EXISTS phone       VARCHAR(30);
+
+-- Backfill existing rows with a placeholder so NOT NULL can be enforced
+-- (only needed if you want to add NOT NULL constraints later)
+UPDATE email_signups
+  SET name = 'Unknown', institution = 'Unknown'
+  WHERE name IS NULL OR institution IS NULL;
+
+-- Add GIN index to survey_responses if it was created without one
+CREATE INDEX IF NOT EXISTS idx_survey_responses_jsonb
+  ON survey_responses USING GIN (responses);
+```
+
+> ⚠️ After running the migration, verify it worked:
+> ```sql
+> SELECT column_name, data_type FROM information_schema.columns
+> WHERE table_name = 'email_signups'
+> ORDER BY ordinal_position;
+> ```
+> You should see `name`, `institution`, and `phone` in the list.
 
 ---
 
