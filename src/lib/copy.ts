@@ -198,8 +198,8 @@ export const BOOK_CALL = {
   sub: "Have questions or want to learn more? Book a 15-minute call with us — we'd love to hear about your research.",
   cta: "Book a 15-min call",
   ctaSub: "Pick a time that works for you.",
-  // Calendly URL — swap in when ready
-  calendlyUrl: "https://calendly.com/salterarms",
+  // Calendly scheduling URL (public — safe to expose to client)
+  calendlyUrl: "https://calendly.com/salter_arms-brown/new-meeting?month=2026-03",
 };
 
 export const FOOTER = {
