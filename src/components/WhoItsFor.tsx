@@ -61,11 +61,11 @@ export default function WhoItsFor() {
   return (
     <section className="bg-white px-6 py-20 md:px-12 lg:px-20">
       <div className="mx-auto max-w-5xl">
-        <h2 className="font-[family-name:var(--font-heading)] text-center text-3xl font-bold tracking-tight text-ink md:text-4xl">
+        <h2 className="font-[family-name:var(--font-heading)] text-center text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-ink">
           {WHO_ITS_FOR.heading}
         </h2>
 
-        <div className="mt-14 grid gap-8 md:grid-cols-2">
+        <div className="mt-14 grid gap-8 sm:grid-cols-2">
           {WHO_ITS_FOR.personas.map((persona) => (
             <div
               key={persona.title}

@@ -104,7 +104,7 @@ export default function Hero() {
       >
         {/* Nav */}
         <motion.nav 
-          className="flex w-full items-center justify-between px-0 py-4"
+          className="flex w-full items-center justify-between px-0 py-4 gap-4"
           variants={navVariants}
           initial="hidden"
           animate="visible"
@@ -112,16 +112,16 @@ export default function Hero() {
         >
           {/* Logo on the left */}
           <div className="flex items-center gap-3">
-            <span className="text-xl font-semibold tracking-tight text-white font-[family-name:var(--font-heading)]">
+            <span className="text-lg sm:text-xl font-semibold tracking-tight text-white font-[family-name:var(--font-heading)]">
               Glialink
             </span>
           </div>
 
-          {/* Centered nav links - flex-1 to expand and center */}
-          <div className="flex flex-1 items-center justify-center gap-1 md:gap-2 ml-17">
+          {/* Centered nav links - visible on all screens */}
+          <div className="flex flex-wrap items-center justify-center gap-1 sm:gap-2 flex-1 ml-0 sm:ml-17">
             <motion.button
               onClick={() => scrollTo("problem")}
-              className="rounded-full px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-purple-light/20 hover:text-purple-light"
+              className="rounded-full px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-white transition-colors hover:bg-purple-light/20 hover:text-purple-light"
               whileHover={prefersReducedMotion ? {} : { y: -2 }}
               whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
             >
@@ -129,7 +129,7 @@ export default function Hero() {
             </motion.button>
             <motion.button
               onClick={() => {/* Demo modal — implementation in next PR */}}
-              className="rounded-full px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-purple-light/20 hover:text-purple-light"
+              className="rounded-full px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-white transition-colors hover:bg-purple-light/20 hover:text-purple-light"
               whileHover={prefersReducedMotion ? {} : { y: -2 }}
               whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
             >
@@ -137,7 +137,7 @@ export default function Hero() {
             </motion.button>
             <motion.button
               onClick={() => scrollTo("book-call")}
-              className="rounded-full px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-purple-light/20 hover:text-purple-light"
+              className="rounded-full px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-white transition-colors hover:bg-purple-light/20 hover:text-purple-light"
               whileHover={prefersReducedMotion ? {} : { y: -2 }}
               whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
             >
@@ -145,16 +145,16 @@ export default function Hero() {
             </motion.button>
           </div>
 
-          {/* CTA button on the right */}
+          {/* CTA button on the right - always visible */}
           <motion.button
             onClick={scrollToSignup}
-            className="flex items-center gap-2 text-sm font-medium text-white transition-colors hover:text-purple-light"
+            className="hidden sm:flex items-center gap-2 text-xs sm:text-sm font-medium text-white transition-colors hover:text-purple-light flex-shrink-0"
             whileHover={prefersReducedMotion ? {} : { y: -2 }}
             whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
           >
             {HERO.cta}
             <motion.svg 
-              className="h-4 w-6" 
+              className="h-3 sm:h-4 w-5 sm:w-6" 
               fill="none" 
               stroke="currentColor" 
               viewBox="0 0 24 24"
@@ -179,14 +179,14 @@ export default function Hero() {
             animate="visible"
           >
             <motion.h1 
-              className="font-[family-name:var(--font-heading)] text-3xl font-bold tracking-tight text-white text-balance md:text-4xl lg:text-5xl"
+              className="font-[family-name:var(--font-heading)] text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white text-balance"
               variants={headlineVariants}
               transition={{ duration: 0.8 }}
             >
               {HERO.headline}
             </motion.h1>
             <motion.p 
-              className="mx-auto mt-6 max-w-2xl text-lg text-gray-100 md:text-xl leading-relaxed"
+              className="mx-auto mt-6 max-w-2xl text-base sm:text-lg md:text-xl text-gray-100 leading-relaxed"
               variants={itemVariants}
               transition={{ duration: 0.6 }}
             >
@@ -199,10 +199,10 @@ export default function Hero() {
               initial="hidden"
               animate="visible"
             >
-              <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+              <div className="flex flex-col w-full items-center gap-3 sm:flex-row sm:justify-center">
                 <motion.button
                   onClick={scrollToSignup}
-                  className="rounded-full border border-white/30 bg-white/20 backdrop-blur-sm px-8 py-4 text-lg font-semibold text-white transition-all hover:border-white/60 hover:bg-white/30"
+                  className="w-full sm:w-auto rounded-full border border-white/30 bg-white/20 backdrop-blur-sm px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold text-white transition-all hover:border-white/60 hover:bg-white/30"
                   variants={ctaVariants}
                   transition={{ duration: 0.6 }}
                   whileHover={prefersReducedMotion ? {} : { y: -2, scale: 1.01 }}
@@ -212,7 +212,7 @@ export default function Hero() {
                 </motion.button>
                 <motion.button
                   onClick={() => {/* Example modal — implementation in next PR */}}
-                  className="rounded-full border border-white/30 bg-white/5 backdrop-blur-sm px-8 py-4 text-lg font-semibold text-white transition-all hover:border-white/60 hover:bg-white/10"
+                  className="w-full sm:w-auto rounded-full border border-white/30 bg-white/5 backdrop-blur-sm px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold text-white transition-all hover:border-white/60 hover:bg-white/10"
                   variants={ctaVariants}
                   transition={{ duration: 0.6 }}
                   whileHover={prefersReducedMotion ? {} : { y: -2, scale: 1.01 }}

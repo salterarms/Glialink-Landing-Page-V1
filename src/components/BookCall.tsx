@@ -21,16 +21,16 @@ export default function BookCall() {
       className="bg-white px-6 py-10 md:px-12 lg:px-20"
     >
       <div className="mx-auto w-full max-w-3xl text-center">
-        <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold tracking-tight text-ink md:text-4xl">
+        <h2 className="font-[family-name:var(--font-heading)] text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-ink">
           {BOOK_CALL.heading}
         </h2>
-        <p className="mt-4 text-lg text-gray">{BOOK_CALL.sub}</p>
+        <p className="mt-4 text-base sm:text-lg text-gray">{BOOK_CALL.sub}</p>
 
         <div className="mt-10 overflow-hidden rounded-2xl border border-border shadow-sm">
           <iframe
             src={embedUrl}
             width="100%"
-            height="700"
+            height="600"
             scrolling="no"
             frameBorder="0"
             title="Schedule a call with Glialink"

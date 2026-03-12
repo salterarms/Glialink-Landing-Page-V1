@@ -7,7 +7,7 @@ export default function Mission() {
       <div className="pointer-events-none absolute top-1/2 left-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple/8 blur-3xl" />
 
       <div className="relative mx-auto max-w-3xl">
-        <h2 className="font-[family-name:var(--font-heading)] text-center text-3xl font-bold tracking-tight text-white md:text-4xl">
+        <h2 className="font-[family-name:var(--font-heading)] text-center text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white">
           {MISSION.heading}
         </h2>
 
@@ -19,8 +19,8 @@ export default function Mission() {
                 // Short punchy lines ("I was wrong.", "I want to change that.")
                 // get visual emphasis
                 p.length < 40
-                  ? "text-xl font-semibold text-white"
-                  : "text-base text-white/70"
+                  ? "text-lg sm:text-xl font-semibold text-white"
+                  : "text-sm sm:text-base text-white/70"
               }`}
             >
               {p}

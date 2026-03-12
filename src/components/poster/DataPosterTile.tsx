@@ -2,26 +2,22 @@
 
 import type { PosterTileProps } from "./poster.types";
 import { motion } from "framer-motion";
-import { useReducedMotion } from "framer-motion";
 
 export default function DataPosterTile({
   section,
   isActive,
   onClick,
 }: PosterTileProps) {
-  const prefersReducedMotion = useReducedMotion();
 
   return (
     <motion.button
       onClick={onClick}
       layoutId={`poster-tile-${section.id}`}
-      className={`relative w-full overflow-hidden rounded-lg border transition-all text-left ${
+      className={`relative w-full overflow-hidden rounded-lg border text-left ${
         isActive
           ? "border-purple/60 bg-white/80 shadow-lg"
           : "border-white/30 bg-white/60 hover:border-white/50 hover:bg-white/70 hover:shadow-md"
       }`}
-      whileHover={prefersReducedMotion ? {} : { y: -2 }}
-      whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
       aria-pressed={isActive}
       aria-label={`Open ${section.posterLabel} section`}
     >
@@ -58,18 +54,13 @@ export default function DataPosterTile({
           </div>
 
           {/* Footer cue */}
-          <motion.div
-            className="mt-2 flex items-center gap-1 text-xs text-ink/50"
-            animate={isActive ? { x: 4 } : { x: 0 }}
-            transition={{ duration: 0.2 }}
-          >
+          <div className="mt-2 flex items-center gap-1 text-xs text-ink/50">
             <span>Click to expand</span>
-            <motion.svg
+            <svg
               className="h-3 w-3"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
-              animate={isActive ? { x: 2 } : { x: 0 }}
             >
               <path
                 strokeLinecap="round"
@@ -77,18 +68,17 @@ export default function DataPosterTile({
                 strokeWidth={2}
                 d="M9 5l7 7-7 7"
               />
-            </motion.svg>
-          </motion.div>
+            </svg>
+          </div>
         </div>
 
-        {/* Right: Three statistics containers */}
+        {/* Right: Three statistics containers - hidden on mobile */}
         {section.miniStats && section.miniStats.length > 0 && (
-          <div className="flex gap-2 h-full flex-col">
+          <div className="hidden md:flex gap-2 h-full flex-col">
             {section.miniStats.slice(0, 3).map((stat, idx) => (
               <motion.div
                 key={idx}
                 className="flex flex-1 items-center justify-center rounded-lg border border-ink/30 bg-white p-2"
-                whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
               >
                 {/* Stat number and label on same line */}
                 <div className="text-center font-[family-name:var(--font-heading)] text-sm font-bold text-purple">
