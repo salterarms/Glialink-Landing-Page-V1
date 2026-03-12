@@ -46,11 +46,11 @@ export default function Solution() {
   return (
     <section className="bg-gray-100 px-6 py-20 md:px-12 lg:px-20">
       <div className="mx-auto max-w-5xl">
-        <h2 className="font-[family-name:var(--font-heading)] text-center text-3xl font-bold tracking-tight text-ink md:text-4xl">
+        <h2 className="font-[family-name:var(--font-heading)] text-center text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-ink">
           {SOLUTION.heading}
         </h2>
 
-        <div className="mt-14 grid gap-10 md:grid-cols-3">
+        <div className="mt-14 grid gap-10 sm:grid-cols-2 md:grid-cols-3">
           {SOLUTION.items.map((item) => (
             <div key={item.title} className="flex flex-col items-start">
               <SolutionIcon type={item.icon} />

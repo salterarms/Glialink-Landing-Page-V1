@@ -7,10 +7,10 @@ export default function ProofBar() {
         <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
           {PROOF_BAR.stats.map((stat) => (
             <div key={stat.label} className="text-center">
-              <p className="font-[family-name:var(--font-heading)] text-3xl font-bold text-purple lg:text-2xl">
+              <p className="font-[family-name:var(--font-heading)] text-2xl sm:text-3xl lg:text-2xl font-bold text-purple">
                 {stat.value}
               </p>
-              <p className="mt-2 text-sm font-medium text-ink">{stat.label}</p>
+              <p className="mt-2 text-xs sm:text-sm font-medium text-ink">{stat.label}</p>
               {stat.footnote && (
                 <p className="mt-1 text-xs text-gray leading-snug">{stat.footnote}</p>
               )}

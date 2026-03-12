@@ -47,10 +47,7 @@ export default function PosterGrid({
 
   return (
     <motion.div
-      className="grid gap-6"
-      style={{
-        gridTemplateColumns: "1fr 2fr",
-      }}
+      className="grid gap-6 md:grid-cols-[1fr_2fr]"
       variants={prefersReducedMotion ? {} : containerVariants}
       initial="hidden"
       whileInView="visible"
@@ -125,8 +122,8 @@ export default function PosterGrid({
           </motion.div>
         )}
 
-        {/* Bottom Row: Methodology + Product (side by side) */}
-        <div className="grid gap-6 grid-cols-2">
+        {/* Bottom Row: Methodology + Product (side by side on md+, stacked on mobile) */}
+        <div className="grid gap-6 md:grid-cols-2">
           {/* Methodology */}
           {methodologySection && (
             <motion.div

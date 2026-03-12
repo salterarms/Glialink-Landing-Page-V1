@@ -142,23 +142,23 @@ export default function SignUpForm() {
 
       <div className={`relative mx-auto transition-all duration-500 ${showCalendly ? "max-w-6xl" : "max-w-xl"}`}>
         {/* Main content - adjusts layout based on showCalendly */}
-        <div className={`flex gap-12 ${showCalendly ? "items-start" : ""}`}>
+        <div className={`flex flex-col md:flex-row gap-6 md:gap-12 ${showCalendly ? "md:items-start" : ""}`}>
           {/* Form Section */}
-          <div className={`${showCalendly ? "flex-1 min-w-0" : "w-full"}`}>
+          <div className={`${showCalendly ? "md:flex-1 md:min-w-0" : "w-full"}`}>
             <motion.div 
               className="will-change-auto"
               animate={{ textAlign: showCalendly ? "left" : "center" }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
             >
               <motion.h2 
-                className="font-[family-name:var(--font-heading)] text-3xl font-bold tracking-tight text-white md:text-4xl"
+                className="font-[family-name:var(--font-heading)] text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white"
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
               >
                 {SIGNUP.heading}
               </motion.h2>
               <motion.p 
-                className="mt-4 text-lg text-white/70"
+                className="mt-4 text-base sm:text-lg text-white/70"
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
               >
@@ -174,13 +174,13 @@ export default function SignUpForm() {
             >
               <button
                 onClick={handleShowCalendly}
-                className="rounded-full border border-white/30 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/10"
+                className="rounded-full border border-white/30 px-5 py-2.5 text-xs sm:text-sm font-medium text-white transition-colors hover:bg-white/10"
               >
                 {SIGNUP.ctaSchedule}
               </button>
               <button
                 onClick={handleCopyLink}
-                className="rounded-full border border-white/30 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/10"
+                className="rounded-full border border-white/30 px-5 py-2.5 text-xs sm:text-sm font-medium text-white transition-colors hover:bg-white/10"
               >
                 {copied ? SIGNUP.shareCopied : SIGNUP.ctaShare}
               </button>
