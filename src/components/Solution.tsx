@@ -44,7 +44,7 @@ function SolutionIcon({ type }: { type: "page" | "ask" | "intro" }) {
 
 export default function Solution() {
   return (
-    <section className="bg-white px-6 py-20 md:px-12 lg:px-20">
+    <section className="bg-gray-100 px-6 py-20 md:px-12 lg:px-20">
       <div className="mx-auto max-w-5xl">
         <h2 className="font-[family-name:var(--font-heading)] text-center text-3xl font-bold tracking-tight text-ink md:text-4xl">
           {SOLUTION.heading}
@@ -57,7 +57,7 @@ export default function Solution() {
               <h3 className="mt-5 font-[family-name:var(--font-heading)] text-xl font-semibold text-ink">
                 {item.title}
               </h3>
-              <p className="mt-2 text-gray leading-relaxed">
+              <p className="mt-2 text-ink/80 leading-relaxed">
                 {item.description}
               </p>
             </div>

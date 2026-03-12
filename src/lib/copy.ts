@@ -23,7 +23,7 @@ export const NAV = {
 // ── SECTION 1 — HERO ────────────────────────────────────────
 export const HERO = {
   headline:
-    "Share your research the right way. Get the collaborators, students, and support you've been missing.",
+    "Turn your research into real connections.",
   sub: "Glialink turns your paper, abstract, and link into a living online page with clear asks and active context, so your network knows who can help, and how to help.",
   cta: "Get early access",
   ctaSecondary: "See an example →",
