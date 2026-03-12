@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect, type FormEvent } from "react";
-import { SIGNUP, SURVEY } from "@/lib/copy";
+import { motion, AnimatePresence } from "framer-motion";
+import { SIGNUP, SURVEY, BOOK_CALL } from "@/lib/copy";
 import { event } from "@/lib/analytics";
 import { getAnalyticsContext } from "@/lib/utm";
 import { getVariant } from "@/lib/variants";
@@ -25,6 +26,7 @@ export default function SignUpForm() {
   const [variant, setVariant] = useState<string>("control");
   const [showSurvey, setShowSurvey] = useState(false);
   const [surveyLoading, setSurveyLoading] = useState(false);
+  const [showCalendly, setShowCalendly] = useState(false);
   const [survey, setSurvey] = useState<SurveyResponse>({
     careerStage: "",
     field: "",
@@ -37,8 +39,13 @@ export default function SignUpForm() {
     setVariant(v);
   }, []);
 
-  const scrollToBookCall = () => {
-    document.getElementById("book-call")?.scrollIntoView({ behavior: "smooth" });
+  const handleShowCalendly = () => {
+    setShowCalendly(true);
+    event("show_calendly", { variant });
+  };
+
+  const handleHideCalendly = () => {
+    setShowCalendly(false);
   };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -133,37 +140,61 @@ export default function SignUpForm() {
       {/* Subtle glow */}
       <div className="pointer-events-none absolute top-1/2 left-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple/8 blur-3xl" />
 
-      <div className="relative mx-auto max-w-xl text-center">
-        <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold tracking-tight text-white md:text-4xl">
-          {SIGNUP.heading}
-        </h2>
-        <p className="mt-4 text-lg text-white/70">{SIGNUP.sub}</p>
+      <div className={`relative mx-auto transition-all duration-500 ${showCalendly ? "max-w-6xl" : "max-w-xl"}`}>
+        {/* Main content - adjusts layout based on showCalendly */}
+        <div className={`flex gap-12 ${showCalendly ? "items-start" : ""}`}>
+          {/* Form Section */}
+          <div className={`${showCalendly ? "flex-1 min-w-0" : "w-full"}`}>
+            <motion.div 
+              className="will-change-auto"
+              animate={{ textAlign: showCalendly ? "left" : "center" }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+            >
+              <motion.h2 
+                className="font-[family-name:var(--font-heading)] text-3xl font-bold tracking-tight text-white md:text-4xl"
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+              >
+                {SIGNUP.heading}
+              </motion.h2>
+              <motion.p 
+                className="mt-4 text-lg text-white/70"
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+              >
+                {SIGNUP.sub}
+              </motion.p>
+            </motion.div>
 
-        {/* Three action buttons */}
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
-          <button
-            onClick={scrollToBookCall}
-            className="rounded-full border border-white/30 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/10"
-          >
-            {SIGNUP.ctaSchedule}
-          </button>
-          <button
-            onClick={handleCopyLink}
-            className="rounded-full border border-white/30 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/10"
-          >
-            {copied ? SIGNUP.shareCopied : SIGNUP.ctaShare}
-          </button>
-        </div>
+            {/* Three action buttons */}
+            <motion.div 
+              className={`mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center`}
+              animate={{ flexDirection: showCalendly ? "row" : "row" }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+            >
+              <button
+                onClick={handleShowCalendly}
+                className="rounded-full border border-white/30 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/10"
+              >
+                {SIGNUP.ctaSchedule}
+              </button>
+              <button
+                onClick={handleCopyLink}
+                className="rounded-full border border-white/30 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/10"
+              >
+                {copied ? SIGNUP.shareCopied : SIGNUP.ctaShare}
+              </button>
+            </motion.div>
 
-        {/* Divider */}
-        <div className="mt-8 flex items-center gap-4">
-          <div className="h-px flex-1 bg-white/10" />
-          <span className="text-xs text-white/30 uppercase tracking-widest">or join the waitlist</span>
-          <div className="h-px flex-1 bg-white/10" />
-        </div>
+            {/* Divider */}
+            <div className="mt-8 flex items-center gap-4">
+              <div className="h-px flex-1 bg-white/10" />
+              <span className="text-xs text-white/30 uppercase tracking-widest">or join the waitlist</span>
+              <div className="h-px flex-1 bg-white/10" />
+            </div>
 
-        {/* Waitlist form */}
-        <div className="mt-6">
+            {/* Waitlist form */}
+            <div className="mt-6">
           {!submitted ? (
             <form onSubmit={handleSubmit} className="space-y-3">
               <div className="flex flex-col gap-3">
@@ -318,6 +349,54 @@ export default function SignUpForm() {
               </button>
             </div>
           )}
+            </div>
+          </div>
+
+          {/* Calendly Section - appears when showCalendly is true */}
+          <AnimatePresence mode="wait">
+            {showCalendly && (
+              <motion.div 
+                className="flex-1 min-w-0"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+              >
+                <motion.div 
+                  className="sticky top-20"
+                  transition={{ duration: 0.4 }}
+                >
+                  <motion.div 
+                    className="flex items-center justify-between mb-4"
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.1, duration: 0.3 }}
+                  >
+                    <h3 className="text-lg font-semibold text-white">{BOOK_CALL.heading}</h3>
+                    <button
+                      onClick={handleHideCalendly}
+                      className="text-white/50 hover:text-white transition-colors"
+                    >
+                      ✕
+                    </button>
+                  </motion.div>
+                  <motion.div 
+                    className="rounded-2xl border border-white/20 bg-white/5 overflow-hidden"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.15, duration: 0.3 }}
+                  >
+                    <iframe
+                      src={`${BOOK_CALL.calendlyUrl}?embed_type=Inline&hide_landing_page_details=1&hide_gdpr_banner=1&primary_color=7C5CFC`}
+                      width="100%"
+                      height="700"
+                      frameBorder="0"
+                      className="bg-white/5"
+                    />
+                  </motion.div>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </section>

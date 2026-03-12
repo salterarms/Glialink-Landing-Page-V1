@@ -18,7 +18,7 @@ export default function BookCall() {
   return (
     <section
       id="book-call"
-      className="bg-white px-6 py-20 md:px-12 lg:px-20"
+      className="bg-white px-6 py-10 md:px-12 lg:px-20"
     >
       <div className="mx-auto w-full max-w-3xl text-center">
         <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold tracking-tight text-ink md:text-4xl">

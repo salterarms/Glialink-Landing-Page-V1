@@ -1,12 +1,12 @@
 import { cookies } from "next/headers";
 import Hero from "@/components/Hero";
+import ConferencePosterSection from "@/components/ConferencePosterSection";
 import Problem from "@/components/Problem";
 import Solution from "@/components/Solution";
 import HowItWorks from "@/components/HowItWorks";
 import WhoItsFor from "@/components/WhoItsFor";
 import Mission from "@/components/Mission";
 import ProofBar from "@/components/ProofBar";
-import BookCall from "@/components/BookCall";
 import SignUpForm from "@/components/SignUpForm";
 import Footer from "@/components/Footer";
 
@@ -19,13 +19,13 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <Problem />
+      <ConferencePosterSection />
+      {/* <Problem />
       <Solution />
       <HowItWorks />
       <WhoItsFor />
       <Mission />
-      <ProofBar />
-      <BookCall />
+      <ProofBar /> */}
       <SignUpForm />
       <Footer />
     </>
