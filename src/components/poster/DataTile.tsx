@@ -47,7 +47,16 @@ export default function DataTile({
 
           {/* Summary */}
           <p className="text-sm leading-relaxed text-ink/70">
-            {section.collapsedSummary}
+            {typeof section.collapsedSummary === "string"
+              ? section.collapsedSummary
+              : section.collapsedSummary.map((part, i) => (
+                  <span
+                    key={i}
+                    className={part.highlight ? "font-semibold text-purple" : undefined}
+                  >
+                    {part.text}
+                  </span>
+                ))}
           </p>
 
           {/* Footer cue */}
