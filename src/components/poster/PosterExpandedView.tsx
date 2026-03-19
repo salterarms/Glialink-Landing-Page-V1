@@ -88,13 +88,12 @@ export default function PosterExpandedView({
                     {block.heading}
                   </h3>
                 )}
-                <p
+                <div
                   className={`${
                     block.heading ? "mt-3" : ""
                   } leading-relaxed text-ink/80`}
-                >
-                  {block.body}
-                </p>
+                  dangerouslySetInnerHTML={{ __html: block.body }}
+                />
               </motion.div>
             ))}
           </div>
@@ -225,13 +224,12 @@ export default function PosterExpandedView({
                     {block.heading}
                   </h3>
                 )}
-                <p
+                <div
                   className={`${
                     block.heading ? "mt-3" : ""
                   } leading-relaxed text-ink/80`}
-                >
-                  {block.body}
-                </p>
+                  dangerouslySetInnerHTML={{ __html: block.body }}
+                />
               </motion.div>
             ))}
           </div>

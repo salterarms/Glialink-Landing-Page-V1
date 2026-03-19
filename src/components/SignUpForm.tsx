@@ -39,6 +39,17 @@ export default function SignUpForm() {
     setVariant(v);
   }, []);
 
+  useEffect(() => {
+    // Listen for custom event to open Calendly from other components
+    const handleOpenCalendly = () => {
+      setShowCalendly(true);
+      event("show_calendly", { variant });
+    };
+
+    window.addEventListener("openCalendly", handleOpenCalendly);
+    return () => window.removeEventListener("openCalendly", handleOpenCalendly);
+  }, [variant]);
+
   const handleShowCalendly = () => {
     setShowCalendly(true);
     event("show_calendly", { variant });
@@ -78,13 +89,25 @@ export default function SignUpForm() {
           user_agent: navigator.userAgent,
         }),
       });
-      if (!res.ok) throw new Error("Submission failed");
+
+      // Handle rate limiting
+      if (res.status === 429) {
+        setError("Too many signup attempts. Please wait a minute and try again.");
+        event("form_submit_rate_limited", { variant });
+        return;
+      }
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.error || "Submission failed");
+      }
+
       setSubmitted(true);
       setShowSurvey(true);
       event("form_submit_success", { variant });
     } catch (err) {
       console.error("Form submission error:", err);
-      setError("Something went wrong. Please try again.");
+      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
       event("form_submit_error", { variant, error: String(err) });
     } finally {
       setLoading(false);
