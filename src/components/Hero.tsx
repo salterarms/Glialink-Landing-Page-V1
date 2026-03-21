@@ -120,7 +120,7 @@ export default function Hero() {
           {/* Centered nav links - visible on all screens */}
           <div className="flex flex-wrap items-center justify-center gap-1 sm:gap-2 flex-1 ml-0 sm:ml-17">
             <motion.button
-              onClick={() => scrollTo("problem")}
+              onClick={() => scrollTo("about")}
               className="rounded-full px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-white transition-colors hover:bg-purple-light/20 hover:text-purple-light"
               whileHover={prefersReducedMotion ? {} : { y: -2 }}
               whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}

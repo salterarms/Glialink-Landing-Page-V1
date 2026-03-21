@@ -15,6 +15,13 @@ export default function ConferencePosterSection() {
 
   const handleTileClick = (id: string) => {
     setActiveId(id);
+    // Prevent default scroll behavior by scrolling to the top of the poster section
+    setTimeout(() => {
+      const posterSection = document.getElementById("about");
+      if (posterSection) {
+        posterSection.scrollIntoView({ behavior: "auto", block: "start" });
+      }
+    }, 0);
   };
 
   const handleClose = () => {
@@ -22,10 +29,10 @@ export default function ConferencePosterSection() {
   };
 
   return (
-    <section className="relative bg-white px-6 py-20 md:px-12 lg:px-20">
+    <section id="about" className="relative bg-white px-6 py-20 md:px-12 lg:px-20">
       <div className="mx-auto max-w-7xl">
         {/* Dark purple background container */}
-        <div className="rounded-lg bg-purple/10 p-6 md:p-12 min-h-auto md:min-h-[900px]">
+        <div className="rounded-lg bg-purple/10 p-6 md:p-12 min-h-screen md:min-h-[900px]">
           {/* Section header */}
           <motion.div
             className="mb-10 flex flex-col md:flex-row gap-8 justify-between md:items-end"

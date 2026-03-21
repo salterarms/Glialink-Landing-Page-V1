@@ -100,7 +100,7 @@ export default function PosterExpandedView({
 
           {/* Features grid */}
           {section.expandedContent.features && section.expandedContent.features.length > 0 && (
-            <div className="mt-10 grid gap-6 grid-cols-3">
+            <div className="mt-10 space-y-6 md:grid md:gap-6 md:grid-cols-3">
               {section.expandedContent.features.map((feature, idx) => (
                 <motion.div
                   key={idx}
