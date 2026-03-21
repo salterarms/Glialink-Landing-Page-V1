@@ -74,17 +74,17 @@ export default function WhoBenefitsPosterTile({
 
         {/* Right: Testimonial container - hidden on mobile */}
         <div
-          className="hidden md:flex flex-1 items-center justify-center rounded-lg border border-ink/30 bg-white p-4"
+          className="hidden md:flex flex-1 items-center justify-center"
         >
-          <div className="flex flex-col gap-3 h-full justify-between">
+          <div className="flex flex-col gap-3 h-fit justify-between rounded-lg border border-ink/30 bg-white p-4 max-w-sm">
             {/* Testimonial quote */}
-            <p className="text-sm leading-relaxed text-ink/70 italic">
-              "I've recently been through that whole process of trying to find a lab, emailing a million PIs, and none of them email you back. You're like, okay, what do I do now?"
+            <p className="text-base leading-relaxed text-ink/70 italic">
+              "Faculty have a <span className="font-bold">very hard time finding good people</span>… finding people who are a <span className="font-bold">good fit for their programs</span>."
             </p>
 
             {/* Testimonial source */}
             <p className="text-xs text-ink/50 font-medium">
-              — Neuroscience PhD student, Stony Brook University
+              — Researcher at the Medical University of South Carolina
             </p>
           </div>
         </div>

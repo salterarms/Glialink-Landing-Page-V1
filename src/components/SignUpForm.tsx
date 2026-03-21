@@ -27,6 +27,11 @@ export default function SignUpForm() {
   const [showSurvey, setShowSurvey] = useState(false);
   const [surveyLoading, setSurveyLoading] = useState(false);
   const [showCalendly, setShowCalendly] = useState(false);
+  // Field-specific validation errors
+  const [nameError, setNameError] = useState("");
+  const [institutionError, setInstitutionError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
   const [survey, setSurvey] = useState<SurveyResponse>({
     careerStage: "",
     field: "",
@@ -39,6 +44,17 @@ export default function SignUpForm() {
     setVariant(v);
   }, []);
 
+  useEffect(() => {
+    // Listen for custom event to open Calendly from other components
+    const handleOpenCalendly = () => {
+      setShowCalendly(true);
+      event("show_calendly", { variant });
+    };
+
+    window.addEventListener("openCalendly", handleOpenCalendly);
+    return () => window.removeEventListener("openCalendly", handleOpenCalendly);
+  }, [variant]);
+
   const handleShowCalendly = () => {
     setShowCalendly(true);
     event("show_calendly", { variant });
@@ -48,12 +64,59 @@ export default function SignUpForm() {
     setShowCalendly(false);
   };
 
+  // Validation functions
+  const validateName = (value: string): string => {
+    if (!value.trim()) return "Name is required";
+    if (value.trim().length < 2) return "Name must be at least 2 characters";
+    if (value.trim().length > 100) return "Name must be less than 100 characters";
+    if (!/^[a-zA-Z\s'-]+$/.test(value)) return "Name can only contain letters, spaces, hyphens, and apostrophes";
+    return "";
+  };
+
+  const validateInstitution = (value: string): string => {
+    if (!value.trim()) return "Institution is required";
+    if (value.trim().length < 2) return "Institution must be at least 2 characters";
+    if (value.trim().length > 150) return "Institution must be less than 150 characters";
+    return "";
+  };
+
+  const validateEmail = (value: string): string => {
+    if (!value.trim()) return "Email is required";
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(value)) return "Please enter a valid email address";
+    return "";
+  };
+
+  const validatePhone = (value: string): string => {
+    if (!value) return ""; // Phone is optional
+    if (value.trim().length < 10) return "Phone number must be at least 10 characters";
+    if (value.trim().length > 20) return "Phone number must be less than 20 characters";
+    if (!/^[\d\s\-\+\(\)]+$/.test(value)) return "Phone number can only contain digits, spaces, dashes, and parentheses";
+    return "";
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!email || loading) return;
-
     setLoading(true);
     setError("");
+
+    // Validate all fields
+    const nameError = validateName(name);
+    const institutionError = validateInstitution(institution);
+    const emailError = validateEmail(email);
+    const phoneError = validatePhone(phone);
+
+    if (nameError || institutionError || emailError || phoneError) {
+      setError(nameError || institutionError || emailError || phoneError);
+      event("form_validation_error", { 
+        variant,
+        error: nameError || institutionError || emailError || phoneError 
+      });
+      setLoading(false);
+      return;
+    }
+
+    if (loading) return;
 
     const emailDomain = email.split("@")[1] || "";
     event("form_submit", { email_domain: emailDomain, variant });
@@ -78,13 +141,25 @@ export default function SignUpForm() {
           user_agent: navigator.userAgent,
         }),
       });
-      if (!res.ok) throw new Error("Submission failed");
+
+      // Handle rate limiting
+      if (res.status === 429) {
+        setError("Too many signup attempts. Please wait a minute and try again.");
+        event("form_submit_rate_limited", { variant });
+        return;
+      }
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.error || "Submission failed");
+      }
+
       setSubmitted(true);
       setShowSurvey(true);
       event("form_submit_success", { variant });
     } catch (err) {
       console.error("Form submission error:", err);
-      setError("Something went wrong. Please try again.");
+      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
       event("form_submit_error", { variant, error: String(err) });
     } finally {
       setLoading(false);
@@ -168,7 +243,7 @@ export default function SignUpForm() {
 
             {/* Three action buttons */}
             <motion.div 
-              className={`mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center`}
+              className={`mt-8 flex flex-col gap-3 sm:flex-row justify-center items-center`}
               animate={{ flexDirection: showCalendly ? "row" : "row" }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
             >
@@ -198,39 +273,83 @@ export default function SignUpForm() {
           {!submitted ? (
             <form onSubmit={handleSubmit} className="space-y-3">
               <div className="flex flex-col gap-3">
-                <input
-                  type="text"
-                  required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder={SIGNUP.namePlaceholder}
-                  className="flex-1 rounded-full border border-white/20 bg-white/10 px-5 py-3.5 text-base text-white placeholder:text-white/40 outline-none transition-all focus:border-white/50 focus:ring-2 focus:ring-white/10"
-                />
-                <input
-                  type="text"
-                  required
-                  value={institution}
-                  onChange={(e) => setInstitution(e.target.value)}
-                  placeholder={SIGNUP.institutionPlaceholder}
-                  className="flex-1 rounded-full border border-white/20 bg-white/10 px-5 py-3.5 text-base text-white placeholder:text-white/40 outline-none transition-all focus:border-white/50 focus:ring-2 focus:ring-white/10"
-                />
+                <div>
+                  <input
+                    type="text"
+                    required
+                    value={name}
+                    onChange={(e) => {
+                      setName(e.target.value);
+                      setNameError("");
+                    }}
+                    onBlur={() => setNameError(validateName(name))}
+                    placeholder={SIGNUP.namePlaceholder}
+                    className={`w-full rounded-full border bg-white/10 px-5 py-3.5 text-base text-white placeholder:text-white/40 outline-none transition-all focus:ring-2 focus:ring-white/10 ${
+                      nameError 
+                        ? "border-red-400/60 focus:border-red-400/80" 
+                        : "border-white/20 focus:border-white/50"
+                    }`}
+                  />
+                  {nameError && <p className="mt-1 text-xs text-red-300">{nameError}</p>}
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    required
+                    value={institution}
+                    onChange={(e) => {
+                      setInstitution(e.target.value);
+                      setInstitutionError("");
+                    }}
+                    onBlur={() => setInstitutionError(validateInstitution(institution))}
+                    placeholder={SIGNUP.institutionPlaceholder}
+                    className={`w-full rounded-full border bg-white/10 px-5 py-3.5 text-base text-white placeholder:text-white/40 outline-none transition-all focus:ring-2 focus:ring-white/10 ${
+                      institutionError 
+                        ? "border-red-400/60 focus:border-red-400/80" 
+                        : "border-white/20 focus:border-white/50"
+                    }`}
+                  />
+                  {institutionError && <p className="mt-1 text-xs text-red-300">{institutionError}</p>}
+                </div>
               </div>
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                onFocus={() => event("form_start", { variant })}
-                placeholder={SIGNUP.placeholder}
-                className="w-full rounded-full border border-white/20 bg-white/10 px-5 py-3.5 text-base text-white placeholder:text-white/40 outline-none transition-all focus:border-white/50 focus:ring-2 focus:ring-white/10"
-              />
-              <input
-                type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder={SIGNUP.phonePlaceholder}
-                className="w-full rounded-full border border-white/20 bg-white/10 px-5 py-3.5 text-base text-white placeholder:text-white/40 outline-none transition-all focus:border-white/50 focus:ring-2 focus:ring-white/10"
-              />
+              <div>
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    setEmailError("");
+                  }}
+                  onBlur={() => setEmailError(validateEmail(email))}
+                  onFocus={() => event("form_start", { variant })}
+                  placeholder={SIGNUP.placeholder}
+                  className={`w-full rounded-full border bg-white/10 px-5 py-3.5 text-base text-white placeholder:text-white/40 outline-none transition-all focus:ring-2 focus:ring-white/10 ${
+                    emailError 
+                      ? "border-red-400/60 focus:border-red-400/80" 
+                      : "border-white/20 focus:border-white/50"
+                  }`}
+                />
+                {emailError && <p className="mt-1 text-xs text-red-300">{emailError}</p>}
+              </div>
+              <div>
+                <input
+                  type="tel"
+                  value={phone}
+                  onChange={(e) => {
+                    setPhone(e.target.value);
+                    setPhoneError("");
+                  }}
+                  onBlur={() => setPhoneError(validatePhone(phone))}
+                  placeholder={SIGNUP.phonePlaceholder}
+                  className={`w-full rounded-full border bg-white/10 px-5 py-3.5 text-base text-white placeholder:text-white/40 outline-none transition-all focus:ring-2 focus:ring-white/10 ${
+                    phoneError 
+                      ? "border-red-400/60 focus:border-red-400/80" 
+                      : "border-white/20 focus:border-white/50"
+                  }`}
+                />
+                {phoneError && <p className="mt-1 text-xs text-red-300">{phoneError}</p>}
+              </div>
               <button
                 type="submit"
                 disabled={loading}

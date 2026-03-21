@@ -120,7 +120,7 @@ export default function Hero() {
           {/* Centered nav links - visible on all screens */}
           <div className="flex flex-wrap items-center justify-center gap-1 sm:gap-2 flex-1 ml-0 sm:ml-17">
             <motion.button
-              onClick={() => scrollTo("problem")}
+              onClick={() => scrollTo("about")}
               className="rounded-full px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-white transition-colors hover:bg-purple-light/20 hover:text-purple-light"
               whileHover={prefersReducedMotion ? {} : { y: -2 }}
               whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
@@ -136,7 +136,15 @@ export default function Hero() {
               {NAV.demo}
             </motion.button>
             <motion.button
-              onClick={() => scrollTo("book-call")}
+              onClick={() => {
+                scrollTo("book-call");
+                // Dispatch custom event to open Calendly in SignUpForm
+                window.dispatchEvent(new Event("openCalendly"));
+                // Also scroll to the signup form section
+                setTimeout(() => {
+                  document.getElementById("signup")?.scrollIntoView({ behavior: "smooth" });
+                }, 300);
+              }}
               className="rounded-full px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-white transition-colors hover:bg-purple-light/20 hover:text-purple-light"
               whileHover={prefersReducedMotion ? {} : { y: -2 }}
               whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}

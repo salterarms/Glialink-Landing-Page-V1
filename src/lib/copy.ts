@@ -112,8 +112,8 @@ export const WHO_ITS_FOR = {
         "You're doing important work, but don't know where and how to share it. You are invisible to prospective labs, and want to find opportunities authentically — not through cold emails. You see other ways to support your lab — recruiting participants, recommending research assistants, maintaining an online presence — but legacy research norms keep you confined.",
       icon: "assistant" as const,
       quote:
-        "\"I've recently been through that whole process of trying to find a lab, emailing a million PIs, and none of them email you back. You're like, okay, what do I do now?\"",
-      quoteSource: "Neuroscience PhD student, Stony Brook University",
+        "\"Faculty have a very hard time finding good people… finding people who are a good fit for their programs.\"",
+      quoteSource: "Researcher at the Medical University of South Carolina",
     },
     {
       title: "Grad students & postdocs",
@@ -260,7 +260,7 @@ export const BOOK_CALL = {
 export const FOOTER = {
   tagline: "Built by researchers, for researchers.",
   org: "Brown University",
-  contactEmail: "team@glialink.com",
+  contactEmail: "glialinksocial@gmail.com",
 };
 
 // ── CONFERENCE POSTER SECTION ───────────────────────────────
@@ -296,39 +296,33 @@ export const POSTER_SECTIONS: PosterSection[] = [
     posterLabel: "INTRODUCTION",
     collapsedTitle: "Why This Work Matters",
     collapsedSummary:
-      "The research ecosystem is broken. We're building visible, connected infrastructure so researchers can find support.",
+      "The research ecosystem forgot how to work together. We’re building connective infrastructure that makes finding and offering support intuitive.",
     expandedTitle: "Why We're Building This",
     expandedContent: {
       blocks: [
         {
-          body: "I'm Salter, a neuroscience student at Brown who was once enraptured by the wide world of research. I saw a potential career of innovation with the prospect of building a better world. I thought it was my path to impact.",
+          body: "I'm Salter, a neuroscience student at Brown who spent years convinced that research was my path to an impactful career.",
         },
         {
-          body: "I was wrong.",
-          highlight: true,
+          body: "I was wrong — or at least, the field made sure I felt that way.",
         },
         {
-          body: "Turned away at every corner, I struggled to find my fit and found no way in. Hundreds of outdated lab websites scoured and dozens of cold emails sent, I obtained three different research positions that offered zero sense of belonging.",
+          body: "Turned away at every corner, I struggled to find my way in and find my fit. After viewing hundreds of outdated lab websites and sending dozens of cold emails, I obtained three different research positions, none of which offered a sense of belonging.",
         },
         {
-          body: "An impenetrable field, inexplicable to exactly those it's built to support. Closed to those who want to help.",
-          highlight: true,
+          body: "The field felt impenetrable — inexplicable, even, to the students it's supposed to support.",
         },
         {
-          body: "I want to change that.",
-          highlight: true,
+          body: "Intrigued, I began asking questions, observing patterns, and obsessing over the problem. From dozens of conversations with all types of researchers, I realized it isn't just me. It isn't just students.",
         },
         {
-          body: "After a year of obsessing over this problem and countless interviews and conversations with researchers, I reinforced my belief that the infrastructure for scientific connection is broken.",
+          body: "The research ecosystems' infrastructure for visibility and connectivity is broken.",
         },
         {
-          body: "At Glialink, we believe a visible research ecosystem is a supportable one. We want to give students a clear path into the field, the public a sense of its importance, physicians clear takeaways from the work, and researchers a way to reliably lean on someone other than themselves.",
+          body: "At Glialink, we believe a visible research ecosystem is a supportable one. We want to give students a clear path into the field, the public a window into the work meant to support them, physicians and lawmakers clear takeaways from the work, and researchers a way to reliably support one another.",
         },
         {
-          body: "A team of current and former student researchers, we are building what we wish existed.",
-        },
-        {
-          body: "With the long-term vision of an active online lab and researcher directory with clearly communicated needs, wants, and offerings, we are creating a more visible, coordinated, and supportable research ecosystem.",
+          body: "A team of current and former student researchers, we are building what we wish existed. Our long-term vision is an active online lab and researcher directory with clearly communicated needs, wants, and offerings to create a more connected, efficient, and supported research ecosystem.",
         },
         {
           body: "It all starts with one active project, one visible researcher profile, and your ideas and feedback.",
@@ -380,21 +374,24 @@ export const POSTER_SECTIONS: PosterSection[] = [
       intro: "The data confirms what researchers already know: the current system fails.",
       blocks: [
         {
-          heading: "Accessibility Crisis",
-          body: "60% of academics say their research is difficult to use outside academia. 45% also agree that papers are too long.",
-          highlight: true,
+          heading: "60% of academics say their research is difficult to use outside academia",
+          body: "45% also agree that papers are too long. In a 2021 survey of 1,500 academics across 100+ countries.³",
         },
         {
-          heading: "Discoverability Failure",
-          body: "Only 3 out of 24 articles receive median Twitter mentions or Mendeley reads. Among 36,780 articles, most go unnoticed.",
+          heading: "Median X (Twitter) mentions per article: 3. Median Mendeley readers: 24.",
+          body: "Among 36,780 articles published in emergency medicine journals (2013–2023) — and only among articles that received any social attention at all.⁴",
         },
         {
-          heading: "Citation Collapse",
-          body: "~1/3 of papers are not cited within 5 years in the social and natural sciences. In the humanities, the rate climbs to 82%.",
+          heading: "~1/3 of papers in the social and natural sciences are not cited within 5 years",
+          body: "With noncitation rates as high as 82% in the humanities.⁵",
         },
         {
-          heading: "Demand Outpaces Supply",
-          body: "95% of doctors want to learn about new clinical research, but 70% feel overwhelmed by volume.",
+          heading: "95% of doctors want to learn about new clinical research; 70% feel overwhelmed by the volume",
+          body: "In a Doximity survey of 600 physicians across oncology, neurology, cardiology, endocrinology, and gastroenterology.⁶",
+        },
+        {
+          heading: "Built on 50+ researcher interviews at Brown, and beyond",
+          body: "Relentless curiosity, by yours truly ;)",
         },
       ],
     },
@@ -445,7 +442,7 @@ export const POSTER_SECTIONS: PosterSection[] = [
   {
     id: "product",
     posterLabel: "OUR PRODUCT",
-    collapsedTitle: "Project Pages for Modern Researchers",
+    collapsedTitle: "Project Pages Worth Sharing",
     collapsedSummary:
       "A home for your research that enables real collaboration. Not PDFs. Not static pages.",
     expandedTitle: "A home for your research that enables real collaboration.",
@@ -453,8 +450,8 @@ export const POSTER_SECTIONS: PosterSection[] = [
       features: [
         {
           number: "1",
-          heading: "Project pages, not PDFs",
-          body: "Something worth sharing — future directions, your mission, concise summaries. Your work, made legible to anyone.",
+          heading: "Living Project Pages",
+          body: "Enabling real, valuable connections from future directions, your mission, and concise summaries.",
         },
         {
           number: "2",
@@ -475,25 +472,62 @@ export const POSTER_SECTIONS: PosterSection[] = [
     collapsedTitle: "Built for Every Researcher",
     collapsedSummary:
       "From PhD students to PIs. Conference presenters to industry researchers. Anyone ready to mobilize their work.",
-    expandedTitle: "Researchers Ready to Mobilize",
+    expandedTitle: "Built for the researchers who want to mobilize their research & don’t know how",
     expandedContent: {
       intro: "This is for researchers who know their work matters and want support.",
       blocks: [
         {
           heading: "Student Research Assistants",
-          body: "You're doing important work, but don't know where and how to share it. You are invisible to prospective labs, and want to find opportunities authentically — not through cold emails.",
+          body: "You're doing important work, but don't know where and how to share it. You are invisible to prospective labs, and want to find opportunities authentically — not through cold emails. You see other ways to support your lab — recruiting participants, recommending research assistants, maintaining an online presence — but legacy research norms keep you confined.\n\n<div style=\"border: 1px solid #333; border-radius: 8px; padding: 16px; margin-top: 12px; background-color: rgba(0,0,0,0.02);\">\"I've recently been through that whole process of trying to find a lab, emailing a million PIs, and none of them email you back. You're like, okay, what do I do now?\" - Neuroscience PhD student, Stony Brook University</div>",
         },
         {
           heading: "Grad Students & Postdocs",
-          body: "You're seeking more opportunities to publish, scale your impact, and build support for your research. Your supporters don't exist beyond your lab mates.",
+          body: "You're seeking more opportunities to publish, scale your impact, and build support for your research. You see the value of online personal branding, but your network is spread across 5 platforms. Your work's reach is constrained to your advisor's contacts, and your supporters don't exist beyond your lab mates.\n\n<div style=\"border: 1px solid #333; border-radius: 8px; padding: 16px; margin-top: 12px; background-color: rgba(0,0,0,0.02);\">Over 95% of academics in one survey use at least one social or networking site professionally, and about 70% agree that they need to do more promotion of their work via such channels.¹</div>",
         },
         {
           heading: "Conference Presenters",
-          body: "Your publication took years. Your networks exist online, but your work exists in person. The people who connect with you have no idea how they can help.",
+          body: "Your publication took years, and you spent days making it presentable just for the 10 attendees to see. Your networks exist online, but your work exists in person. For those who do connect? They have no idea how they can help, and you rarely follow up.\n\n<div style=\"border: 1px solid #333; border-radius: 8px; padding: 16px; margin-top: 12px; background-color: rgba(0,0,0,0.02);\">In a networking event evaluation, 62.5% said immediately after the event they would keep in touch, but at a 3-month follow-up only 25% still agreed/strongly agreed (and 37.5% disagreed/strongly disagreed).²</div>",
         },
         {
           heading: "Principal Investigators",
-          body: "You've spent years building connections, just to maintain a few. Your supporting cast doesn't see your work and is given no opportunity to help.",
+          body: "You have spent years building connections at conferences and online, just to maintain a few. Your supporting cast doesn't see or understand your work and is given no real opportunity to help. Meanwhile, your lab wants to help you build an online presence, surface meaningful collaborations, and find purposeful recruits — you just haven't considered the possibility.\n\n<div style=\"border: 1px solid #333; border-radius: 8px; padding: 16px; margin-top: 12px; background-color: rgba(0,0,0,0.02);\">\"Faculty have a very hard time finding good people… finding people who are a good fit for their programs.\" - Researcher at the Medical University of South Carolina</div>",
+        },
+      ],
+    },
+  },
+  {
+    id: "references",
+    posterLabel: "REFERENCES",
+    collapsedTitle: "A comprehensive overview of the research, methodology, and impact behind our work",
+    collapsedSummary:
+      "Explore the citations and research that informed Glialink's development and mission.",
+    expandedTitle: "Research & Citations",
+    expandedContent: {
+      intro: "Every statistic and insight is backed by rigorous research. Here are our sources.",
+      blocks: [
+        {
+          heading: "¹ Remler, D. (2014)",
+          body: "\"Are 90% of academic papers really never cited? Reviewing the literature on academic citations.\" LSE Impact of Social Sciences Blog, April 23, 2014. https://blogs.lse.ac.uk/impactofsocialsciences/2014/04/23/academic-papers-citation-rates-remler/",
+        },
+        {
+          heading: "² Springer Nature / BMC (2017)",
+          body: "\"How do researchers use social media and scholarly collaboration networks?\" Survey of 3,000+ researchers across STM and humanities fields. https://blogs.biomedcentral.com/bmcblog/2017/06/15/how-do-researchers-use-social-media-and-scholarly-collaboration-networks-scns/",
+        },
+        {
+          heading: "³ Iyengar, S., Ehrlich, J., Chung, E., et al. (2022)",
+          body: "\"Evaluation of a Virtual Networking Event for Emerging Women Leaders in Global Health.\" Annals of Global Health, 88(1), 54. https://doi.org/10.5334/aogh.3728",
+        },
+        {
+          heading: "⁴ Emerald Publishing (2021)",
+          body: "Closing the Impact Gap. Survey of 1,500 academic researchers from 100+ countries, conducted Nov–Dec 2020 and Jan 2021. https://www.emeraldgrouppublishing.com/closing-the-impact-gap",
+        },
+        {
+          heading: "⁵ Tornberg, H., Moezinia, C., Wei, C., et al. (2025)",
+          body: "\"Analysis of the Highest Altmetrics-scored Articles in Emergency Medicine Journals.\" Western Journal of Emergency Medicine. https://pmc.ncbi.nlm.nih.gov/articles/PMC11931700/",
+        },
+        {
+          heading: "⁶ Doximity (2022)",
+          body: "Physician Learning Preferences Report. Survey of 600 physicians across five specialties. Reported in: Fierce Healthcare, June 2023. https://www.fiercehealthcare.com/providers/study-doximity-survey-found-physicians-overwhelmed-amount-reading-needed-stay-date",
         },
       ],
     },

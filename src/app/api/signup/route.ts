@@ -1,9 +1,11 @@
 import { createClient } from '@supabase/supabase-js';
 import { NextRequest, NextResponse } from 'next/server';
+import { checkRateLimit } from '@/lib/ratelimit';
 
 /**
  * POST /api/signup
  * Stores email signup with UTM parameters in Supabase
+ * Includes rate limiting: 5 signups per IP per minute
  */
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -19,6 +21,24 @@ const supabase = supabaseUrl && supabaseKey
 
 export async function POST(request: NextRequest) {
   try {
+    // Get client IP for rate limiting
+    const ip = request.headers.get('x-forwarded-for')?.split(',')[0].trim() 
+      || request.headers.get('x-real-ip')
+      || 'unknown';
+
+    // Check rate limit: 5 signups per minute per IP
+    const { allowed, remaining } = checkRateLimit(ip, {
+      windowMs: 60_000, // 1 minute
+      maxRequests: 5,   // 5 signups per minute
+    });
+
+    if (!allowed) {
+      return NextResponse.json(
+        { error: 'Too many signup attempts. Please try again in a minute.' },
+        { status: 429 }
+      );
+    }
+
     const body = await request.json();
 
     // Validate email
@@ -76,7 +96,12 @@ export async function POST(request: NextRequest) {
         email: data[0].email,
         timestamp: data[0].created_at,
       },
-      { status: 201 }
+      { 
+        status: 201,
+        headers: {
+          'X-RateLimit-Remaining': remaining.toString(),
+        }
+      }
     );
   } catch (error) {
     console.error('❌ Error:', error);
