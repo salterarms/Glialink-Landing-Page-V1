@@ -43,6 +43,7 @@ export default function PosterGrid({
   const methodologySection = sections.find((s) => s.id === "methodology");
   const productSection = sections.find((s) => s.id === "product");
   const whoBenefitsSection = sections.find((s) => s.id === "who-benefits");
+  const referencesSection = sections.find((s) => s.id === "references");
 
   return (
     <motion.div
@@ -53,7 +54,7 @@ export default function PosterGrid({
       viewport={{ once: true, margin: "-100px" }}
     >
       {/* LEFT CONTAINER: Intro + Problem (stacked vertically, problem grows) */}
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-6 md:order-1 order-1">
         {/* Introduction */}
         {introSection && (
           <motion.div
@@ -87,8 +88,8 @@ export default function PosterGrid({
         )}
       </div>
 
-      {/* RIGHT CONTAINER: Data + Who Benefits (stacked) + Methodology + Product (side by side) */}
-      <div className="flex flex-col gap-6">
+      {/* RIGHT CONTAINER: Data + Who Benefits (stacked) + Methodology + Product (side by side) + References (bottom on mobile) */}
+      <div className="flex flex-col gap-6 md:order-2 order-2">
         {/* Data */}
         {dataSection && (
           <motion.div
@@ -155,6 +156,22 @@ export default function PosterGrid({
             </motion.div>
           )}
         </div>
+
+        {/* References - on mobile appears at bottom only */}
+        {referencesSection && (
+          <motion.div
+            variants={prefersReducedMotion ? {} : itemVariants}
+            className={`transition-all md:hidden ${
+              activeId && activeId !== referencesSection.id ? "opacity-40 blur-sm" : ""
+            }`}
+          >
+            <PosterTile
+              section={referencesSection}
+              isActive={activeId === referencesSection.id}
+              onClick={() => onTileClick(referencesSection.id)}
+            />
+          </motion.div>
+        )}
       </div>
     </motion.div>
   );
