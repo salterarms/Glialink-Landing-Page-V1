@@ -2,10 +2,44 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { event } from "@/lib/analytics";
+import { useState } from "react";
 
 export default function DemoPage() {
+  const [shareLoading, setShareLoading] = useState(false);
+
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleShareAsk = async (askNumber: number, askTitle: string) => {
+    setShareLoading(true);
+    
+    // Track in GA4
+    event("share_ask", { 
+      ask_number: String(askNumber),
+      ask_title: askTitle
+    });
+
+    // Track in Supabase
+    try {
+      const response = await fetch("/api/ask-share", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          askNumber,
+          askTitle,
+        }),
+      });
+
+      if (!response.ok) {
+        console.error("Failed to track ask share");
+      }
+    } catch (error) {
+      console.error("Error tracking ask share:", error);
+    } finally {
+      setShareLoading(false);
+    }
   };
 
   const tags = [
@@ -432,6 +466,8 @@ export default function DemoPage() {
                       Best fit: {ask.fit}
                     </small>
                     <button
+                      onClick={() => handleShareAsk(idx + 1, ask.title)}
+                      disabled={shareLoading}
                       style={{
                         padding: "6px 12px",
                         borderRadius: "6px",
@@ -440,19 +476,22 @@ export default function DemoPage() {
                         color: "#161225",
                         fontSize: "0.85rem",
                         fontWeight: 600,
-                        cursor: "pointer",
+                        cursor: shareLoading ? "not-allowed" : "pointer",
                         transition: "all 0.2s",
+                        opacity: shareLoading ? 0.6 : 1,
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.background = "#f0f0f0";
-                        e.currentTarget.style.borderColor = "#d0d0d0";
+                        if (!shareLoading) {
+                          e.currentTarget.style.background = "#f0f0f0";
+                          e.currentTarget.style.borderColor = "#d0d0d0";
+                        }
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.background = "white";
                         e.currentTarget.style.borderColor = "#e6e0f5";
                       }}
                     >
-                      Share this ask
+                      {shareLoading ? "Sharing..." : "Share this ask"}
                     </button>
                   </div>
                 ))}
