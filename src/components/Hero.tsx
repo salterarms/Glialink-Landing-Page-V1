@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { HERO, NAV } from "@/lib/copy";
 import { event } from "@/lib/analytics";
@@ -58,6 +59,7 @@ const ctaVariants = {
 export default function Hero() {
   const [variant, setVariant] = useState<string>("control");
   const heroRef = useRef(null);
+  const router = useRouter();
   const prefersReducedMotion = useReducedMotion();
   const { scrollY } = useScroll();
   
@@ -128,7 +130,7 @@ export default function Hero() {
               {NAV.about}
             </motion.button>
             <motion.button
-              onClick={() => {/* Demo modal — implementation in next PR */}}
+              onClick={() => router.push("/demo")}
               className="rounded-full px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-white transition-colors hover:bg-purple-light/20 hover:text-purple-light"
               whileHover={prefersReducedMotion ? {} : { y: -2 }}
               whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
@@ -219,7 +221,7 @@ export default function Hero() {
                   {HERO.cta}
                 </motion.button>
                 <motion.button
-                  onClick={() => {/* Example modal — implementation in next PR */}}
+                  onClick={() => router.push("/demo")}
                   className="w-full sm:w-auto rounded-full border border-white/30 bg-white/5 backdrop-blur-sm px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold text-white transition-all hover:border-white/60 hover:bg-white/10"
                   variants={ctaVariants}
                   transition={{ duration: 0.6 }}
