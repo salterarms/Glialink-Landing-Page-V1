@@ -219,6 +219,7 @@ export const SURVEY = {
   careerStage: {
     label: "Career stage",
     options: [
+      { value: "research_assistant", label: "Research assistant" },
       { value: "phd", label: "PhD student" },
       { value: "postdoc", label: "Postdoc" },
       { value: "faculty", label: "Faculty" },
