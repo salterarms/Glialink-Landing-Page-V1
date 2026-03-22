@@ -20,6 +20,9 @@ const interTight = Inter_Tight({
 export const metadata: Metadata = {
   title: SITE.title,
   description: SITE.description,
+  icons: {
+    icon: "/glialink-logo-transparent.png",
+  },
   openGraph: {
     title: SITE.title,
     description: SITE.description,

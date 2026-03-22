@@ -88,20 +88,19 @@ export default function PosterExpandedView({
                     {block.heading}
                   </h3>
                 )}
-                <p
+                <div
                   className={`${
                     block.heading ? "mt-3" : ""
                   } leading-relaxed text-ink/80`}
-                >
-                  {block.body}
-                </p>
+                  dangerouslySetInnerHTML={{ __html: block.body }}
+                />
               </motion.div>
             ))}
           </div>
 
           {/* Features grid */}
           {section.expandedContent.features && section.expandedContent.features.length > 0 && (
-            <div className="mt-10 grid gap-6 grid-cols-3">
+            <div className="mt-10 space-y-6 md:grid md:gap-6 md:grid-cols-3">
               {section.expandedContent.features.map((feature, idx) => (
                 <motion.div
                   key={idx}
@@ -225,13 +224,12 @@ export default function PosterExpandedView({
                     {block.heading}
                   </h3>
                 )}
-                <p
+                <div
                   className={`${
                     block.heading ? "mt-3" : ""
                   } leading-relaxed text-ink/80`}
-                >
-                  {block.body}
-                </p>
+                  dangerouslySetInnerHTML={{ __html: block.body }}
+                />
               </motion.div>
             ))}
           </div>
