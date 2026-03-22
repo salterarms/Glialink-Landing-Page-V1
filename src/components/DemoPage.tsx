@@ -406,11 +406,11 @@ export default function DemoPage() {
               <h2 style={{ fontSize: "1.1rem", color: "#161225", marginBottom: "10px", lineHeight: 1.2, letterSpacing: "-0.02em" }} className="font-[family-name:var(--font-heading)] font-bold">
                 How others can directly help extend this research
               </h2>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(0, 1fr))", gap: "12px", marginTop: "12px" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "12px", marginTop: "12px" }}>
                 {asks.map((ask, idx) => (
                   <div
                     key={idx}
-                    className="rounded-lg border p-4"
+                    className="rounded-lg border p-4 md:p-5"
                     style={{
                       background: "#f8f7fc",
                       borderColor: "#e6e0f5",
