@@ -12,7 +12,31 @@ export default function DemoPage() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const handleShareAsk = async (askNumber: number, askTitle: string) => {
+  const handleNativeShare = (title: string, text?: string) => {
+    const shareUrl = "https://joinglialink.com/demo";
+    
+    if (navigator.share) {
+      navigator.share({
+        title: title,
+        text: text || "Check out this research on Glialink",
+        url: shareUrl,
+      }).catch((error) => {
+        if (error.name !== "AbortError") {
+          console.error("Share failed:", error);
+        }
+      });
+    } else {
+      // Fallback: copy to clipboard
+      const shareText = `${title}\n${shareUrl}`;
+      navigator.clipboard.writeText(shareText).then(() => {
+        alert("Link copied to clipboard!");
+      }).catch(() => {
+        alert("Failed to copy link");
+      });
+    }
+  };
+
+  const handleShareAsk = async (askNumber: number, askTitle: string, askDescription: string) => {
     setShareLoading(true);
     
     // Track in GA4
@@ -39,6 +63,12 @@ export default function DemoPage() {
       console.error("Error tracking ask share:", error);
     } finally {
       setShareLoading(false);
+      
+      // Show native share dialog after tracking is done
+      handleNativeShare(
+        `Research Ask: ${askTitle}`,
+        `${askDescription}\n\nCheck out this research ask on Glialink and see how you can help!`
+      );
     }
   };
 
@@ -115,7 +145,10 @@ export default function DemoPage() {
             
             {/* Right side buttons */}
             <div className="flex gap-2 items-center ml-auto">
-              <button
+              <a
+                href="https://www.mdpi.com/2673-592X/5/3/24"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="px-3 py-2 rounded-full text-sm md:text-base font-semibold transition-all"
                 style={{
                   color: "#161225",
@@ -128,8 +161,9 @@ export default function DemoPage() {
                 }}
               >
                 Read Publication
-              </button>
+              </a>
               <button
+                onClick={() => handleNativeShare("Elise's Research Project", "Check out this X-ray radiation interaction research on Glialink!")}
                 className="px-3 py-2 rounded-full text-sm md:text-base font-semibold transition-all"
                 style={{
                   color: "#161225",
@@ -466,7 +500,7 @@ export default function DemoPage() {
                       Best fit: {ask.fit}
                     </small>
                     <button
-                      onClick={() => handleShareAsk(idx + 1, ask.title)}
+                      onClick={() => handleShareAsk(idx + 1, ask.title, ask.description)}
                       disabled={shareLoading}
                       style={{
                         padding: "6px 12px",
@@ -594,6 +628,7 @@ export default function DemoPage() {
             Glialink turns your paper, abstract, and link into a living page with clear asks and active context.
           </p>
           <button
+            onClick={() => handleNativeShare("Elise's Research Project", "Check out this X-ray radiation interaction research on Glialink!")}
             style={{
               padding: "8px 16px",
               borderRadius: "6px",
