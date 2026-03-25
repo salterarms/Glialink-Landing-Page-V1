@@ -16,24 +16,31 @@ export default function DemoPage() {
     const shareUrl = "https://joinglialink.com/demo";
     
     if (navigator.share) {
+      // For better iMessage compatibility, put the URL in the text portion
+      const fullText = text ? `${text}\n\n${shareUrl}` : `Check out this research on Glialink\n\n${shareUrl}`;
+      
       navigator.share({
         title: title,
-        text: text || "Check out this research on Glialink",
-        url: shareUrl,
+        text: fullText,
       }).catch((error) => {
         if (error.name !== "AbortError") {
           console.error("Share failed:", error);
+          // Fallback to clipboard on share failure
+          fallbackToClipboard(fullText);
         }
       });
     } else {
       // Fallback: copy to clipboard
-      const shareText = `${title}\n${shareUrl}`;
-      navigator.clipboard.writeText(shareText).then(() => {
-        alert("Link copied to clipboard!");
-      }).catch(() => {
-        alert("Failed to copy link");
-      });
+      fallbackToClipboard(text ? `${text}\n\n${shareUrl}` : `Check out this research on Glialink\n\n${shareUrl}`);
     }
+  };
+
+  const fallbackToClipboard = (textToCopy: string) => {
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      alert("Link copied to clipboard!");
+    }).catch(() => {
+      alert("Failed to copy link. Please try again.");
+    });
   };
 
   const handleShareAsk = async (askNumber: number, askTitle: string, askDescription: string) => {
@@ -64,10 +71,13 @@ export default function DemoPage() {
     } finally {
       setShareLoading(false);
       
+      // Format the ask as a lowercase sentence for the share text
+      const askSentence = askTitle.charAt(0).toLowerCase() + askTitle.slice(1);
+      
       // Show native share dialog after tracking is done
       handleNativeShare(
-        `Research Ask: ${askTitle}`,
-        `${askDescription}\n\nCheck out this research ask on Glialink and see how you can help!`
+        "",
+        `Hello! Would you be interested in helping us with this ask: ${askTitle}? Learn more about our work at:`
       );
     }
   };
